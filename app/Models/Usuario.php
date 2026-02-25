@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 
-class Cliente extends Model
+class Usuario extends Model
 {
     use HasFactory;
 
@@ -19,7 +19,7 @@ class Cliente extends Model
         );
     }
 
-    protected $table = 'clientes';
+    protected $table = 'usuarios';
 
     protected $fillable = [
         'nome',
