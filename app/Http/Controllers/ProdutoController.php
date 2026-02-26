@@ -61,12 +61,7 @@ class ProdutoController extends Controller
      */
     public function edit(Produto $produto)
     {
-        $validated = $request->validate([
-            'nome' => ['required', 'string'],
-            'quantidade' => ['required', 'integer'],
-            'valor' => ['required', 'decimal'],
-            'descricao' => ['text'],
-        ]);
+        
     }
 
     /**
@@ -74,7 +69,20 @@ class ProdutoController extends Controller
      */
     public function update(Request $request, Produto $produto)
     {
-        //
+        $validated = $request->validate([
+            'nome' => ['required', 'string'],
+            'quantidade' => ['required', 'integer'],
+            'valor' => ['required', 'decimal'],
+            'descricao' => ['text'],
+        ]);
+
+        $produtos->update([
+            'nome' =>validated['nome'],
+            'quantidade' =>validated['quantidade'],
+            'valor' =>validated['valor'],
+            'descricao' =>validated['descricao'],
+        ]);
+        return redirect()->route('produtos.index');
     }
 
     /**
@@ -82,6 +90,7 @@ class ProdutoController extends Controller
      */
     public function destroy(Produto $produto)
     {
-        //
+        $produtos->delete();
+        return redirect()->route(produtos.index);
     }
 }
