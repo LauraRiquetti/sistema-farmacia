@@ -17,4 +17,9 @@ class Produto extends Model
         'valor',
         'descricao',
     ];
+
+    protected function venda()
+    {
+        return $this->hasMany(Venda::class);
+    }
 }

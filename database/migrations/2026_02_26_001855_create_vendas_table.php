@@ -13,11 +13,11 @@ return new class extends Migration
     {
         Schema::create('vendas', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('cliente_id')->constrained();
-            $table->foreignId('produtos_id')->constrained();
+            $table->foreignId('usuario_id')->constrained()->onDelete('cascade');
+            $table->foreignId('produto_id')->constrained()->onDelete('cascade');
             $table->decimal('valor');
             $table->enum('pagemento', ['debito', 'credito', 'pix']);
-            $status->enum('status', ['aguardando_confirmacao', 'separando', 'saiu para entrega', 'entregue']);
+            $table->enum('status', ['aguardando_confirmacao', 'separando', 'saiu_para_entrega', 'entregue']);
             $table->timestamps();
         });
     }
