@@ -34,14 +34,16 @@ class ProdutoController extends Controller
             'nome' => 'required|string',
             'quantidade' => 'required|integer',
             'valor' => 'required|decimal',
-            'descricao' => 'required|text',
+            'status' => 'required|enum',
+            'descricao' => 'nullable|text',
         ]);
 
         Produto::create([
             'nome' =>$request->nome,
             'quantidade' =>$request->quantidade,
             'valor' =>$request->valor,
-            'descricao' =>$request->descricao,
+            'status' => $request->status,
+            'descricao' =>$nullable->descricao,
         ]);
 
         return redirect()->route('produtos.index')
@@ -73,6 +75,7 @@ class ProdutoController extends Controller
             'nome' => ['required', 'string'],
             'quantidade' => ['required', 'integer'],
             'valor' => ['required', 'decimal'],
+            'status' => ['disponivel', 'esgotado', 'reservado'],
             'descricao' => ['text'],
         ]);
 
@@ -80,6 +83,7 @@ class ProdutoController extends Controller
             'nome' =>validated['nome'],
             'quantidade' =>validated['quantidade'],
             'valor' =>validated['valor'],
+            'status' =>validated['status'],
             'descricao' =>validated['descricao'],
         ]);
         return redirect()->route('produtos.index');

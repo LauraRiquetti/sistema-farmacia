@@ -15,11 +15,12 @@ class Venda extends Model
         'valor',
         'pagamento',
         'status',
+        'descricao',
     ];
 
-    public function cliente()
+    public function usuarios()
     {
-        return $this->belongTo(Clientes::class);
+        return $this->belongTo(Usuario::class);
     }
 
     public function produto()
