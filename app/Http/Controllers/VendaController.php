@@ -82,33 +82,16 @@ class VendaController extends Controller
 
         ]);
         $venda->update([
+            'cliente_id' => $validated['cliente_id'],
+            'produto_id' => $validated['produto_id'],
+            'valor' => $validated['valor'],
+            'pagamento' => $validated['pagamento'],
+            'status' => $validated['status'],
 
         ]);
+        return redirect()->route('vendas.index');
     }
 
-    /*public function update(Request $request, Venda $venda)
-    {
-    $validated = $request->validate([
-        'cliente_id' => ['required', 'exists:clientes,id'],
-        'produto_id' => ['required', 'exists:produtos,id'],
-        'valor' => ['required', 'numeric'],
-        'pagamento' => ['required', 'in:debito,credito,pix'],
-        'status' => ['required', 'in:aguardando_confirmacao,separando,saiu_para_entrega,entregue'],
-    ]);
-
-    $venda->update([
-        'cliente_id' => $validated['cliente_id'],
-        'produto_id' => $validated['produto_id'],
-        'valor' => $validated['valor'],
-        'pagamento' => $validated['pagamento'],
-        'status' => $validated['status'],
-    ]);
-
-    return redirect()->route('vendas.index');
-    }*/
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(Venda $venda)
     {
         //
