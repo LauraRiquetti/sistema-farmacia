@@ -18,6 +18,7 @@ return new class extends Migration
             $table->decimal('valor');
             $table->enum('pagemento', ['debito', 'credito', 'pix']);
             $table->enum('status', ['aguardando_confirmacao', 'separando', 'saiu_para_entrega', 'entregue']);
+            $table->text('descricao');
             $table->timestamps();
         });
     }

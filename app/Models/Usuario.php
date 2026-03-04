@@ -28,4 +28,9 @@ class Usuario extends Model
         'data_nascimento',
         'endereco',
     ];
+
+    protected function vendas()
+    {
+        return $this->hasMany(Venda::class);
+    }
 }
