@@ -14,6 +14,7 @@ class VendaController extends Controller
     {
         $vendas = Venda::with('usuario', 'produto')->orderByDesc('id')->get();
         return view('vendas.index', compact('vendas'));
+        return view('views.dashboard', compact('views'));
     }
 
     /**
@@ -29,7 +30,7 @@ class VendaController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validated([
+        $request->validate([
             'usuario_id' => 'required|exists:usuarios,id',
             'produto_id' => 'required|exists:produtos,id',
             'valor' => 'required|decimal',

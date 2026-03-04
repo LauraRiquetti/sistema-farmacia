@@ -30,7 +30,7 @@ class ProdutoController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validated([
+        $request->validate([
             'nome' => 'required|string',
             'quantidade' => 'required|integer',
             'valor' => 'required|decimal',
@@ -43,7 +43,7 @@ class ProdutoController extends Controller
             'quantidade' =>$request->quantidade,
             'valor' =>$request->valor,
             'status' => $request->status,
-            'descricao' =>$nullable->descricao,
+            'descricao' =>$request->descricao,
         ]);
 
         return redirect()->route('produtos.index')
