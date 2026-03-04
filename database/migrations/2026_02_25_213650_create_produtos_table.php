@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('nome');
             $table->integer('quantidade');
             $table->decimal('valor');
+            $table->enum('status', ['disponivel', 'esgotado', 'reservado']);
             $table->text('descricao');
             $table->timestamps();
         });
