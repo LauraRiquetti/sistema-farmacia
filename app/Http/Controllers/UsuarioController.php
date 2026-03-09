@@ -78,7 +78,7 @@ class UsuarioController extends Controller
             'endereco' => ['required', 'string'],
         ]);
 
-        $cliente->update([
+        $usuario->update([
             'nome' => $validated['nome'],
             'email' =>$validated['email'],
             'senha' =>$validated['senha'],
@@ -94,7 +94,7 @@ class UsuarioController extends Controller
      */
     public function destroy(Usuario $cliente)
     {
-        $clientes->delete();
+        $cliente->delete();
         return redirect()->route('usuarios.index');
     }
 }

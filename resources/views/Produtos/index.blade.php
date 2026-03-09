@@ -21,7 +21,7 @@
         <tr>
             <td>{{ $produto->nome }}</td>
             <td>{{ $produto->quantidade }}</td>
-            <td>R$ {{ $produto->preco }}</td>
+            <td>R$ {{ $produto->valor }}</td>
             <td>
                 <a href="{{ route('produtos.edit', $produto->id) }}" class="btn btn-success">Editar</a>
             </td>

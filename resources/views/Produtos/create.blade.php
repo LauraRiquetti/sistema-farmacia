@@ -19,7 +19,7 @@
 
     <div class="form-group">
         <label>Preço</label>
-        <input type="number" step="0.01" name="preco" required>
+        <input type="number" step="0.01" name="valor" required>
     </div>
 
     <button class="btn btn-primary">Salvar</button>
