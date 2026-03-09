@@ -9,7 +9,7 @@
 
     <div class="form-group">
         <label>Nome</label>
-        <input type="text" name="name" required>
+        <input type="text" name="nome" required>
     </div>
 
     <div class="form-group">
@@ -19,7 +19,7 @@
 
     <div class="form-group">
         <label>Senha</label>
-        <input type="password" name="password" required>
+        <input type="password" name="senha" required>
     </div>
 
     <button class="btn btn-primary">Salvar</button>

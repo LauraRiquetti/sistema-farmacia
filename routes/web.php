@@ -44,8 +44,11 @@ Route::put('/vendas/{id}', [VendaController::class, 'update'])->name('vendas.upd
 })->middleware('auth');
 
 Route::get('/login', function () {
-    return view('auth.login');
+    return view('auth.login');     
 })->name('login');*/
+Route::get('/', function () {
+    return view('dashboard');
+});
 Route::get('/dashboard', function () {
     return view('dashboard');
 });

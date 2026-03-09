@@ -16,7 +16,7 @@ return new class extends Migration
             $table->foreignId('usuario_id')->constrained()->onDelete('cascade');
             $table->foreignId('produto_id')->constrained()->onDelete('cascade');
             $table->decimal('valor');
-            $table->enum('pagemento', ['debito', 'credito', 'pix']);
+            $table->enum('pagamento', ['debito', 'credito', 'pix']);
             $table->enum('status', ['aguardando_confirmacao', 'separando', 'saiu_para_entrega', 'entregue']);
             $table->text('descricao');
             $table->timestamps();

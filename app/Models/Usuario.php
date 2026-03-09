@@ -10,14 +10,7 @@ class Usuario extends Model
 {
     use HasFactory;
 
-    protected function endereco(): Attribute
-    {
-        return Attribute::make(
-            // O segundo argumento $attributes traz os outros campos
-            get: fn (mixed $value, array $attributes) => 
-                "{$attributes['estado']} {$attributes['cidade']} {$attributes['bairro']} {$attributes['rua']} {$attributes['numero']}",
-        );
-    }
+   
 
     protected $table = 'usuarios';
 
@@ -26,10 +19,10 @@ class Usuario extends Model
         'email',
         'senha',
         'data_nascimento',
-        'endereco',
+        'endereco'
     ];
 
-    protected function vendas()
+    public function vendas()
     {
         return $this->hasMany(Venda::class);
     }

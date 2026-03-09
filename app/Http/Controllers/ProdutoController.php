@@ -30,22 +30,19 @@ class ProdutoController extends Controller
      */
     public function store(Request $request)
     {
+        
+        $produto = new Produto();
         $request->validate([
             'nome' => 'required|string',
             'quantidade' => 'required|integer',
-            'valor' => 'required|decimal',
-            'status' => 'required|enum',
-            'descricao' => 'nullable|text',
+            'valor' => 'required|numeric',
         ]);
 
         Produto::create([
             'nome' =>$request->nome,
             'quantidade' =>$request->quantidade,
             'valor' =>$request->valor,
-            'status' => $request->status,
-            'descricao' =>$request->descricao,
         ]);
-
         return redirect()->route('produtos.index')
             ->with('sucess', 'Produto cadastrado com sucesso!');
     }
@@ -74,17 +71,13 @@ class ProdutoController extends Controller
         $validated = $request->validate([
             'nome' => ['required', 'string'],
             'quantidade' => ['required', 'integer'],
-            'valor' => ['required', 'decimal'],
-            'status' => ['disponivel', 'esgotado', 'reservado'],
-            'descricao' => ['text'],
+            'valor' => ['required', 'numeric'],
         ]);
 
         $produtos->update([
-            'nome' =>validated['nome'],
-            'quantidade' =>validated['quantidade'],
-            'valor' =>validated['valor'],
-            'status' =>validated['status'],
-            'descricao' =>validated['descricao'],
+            'nome' =>$validated['nome'],
+            'quantidade' =>$validated['quantidade'],
+            'valor' =>$validated['valor'],
         ]);
         return redirect()->route('produtos.index');
     }
@@ -94,7 +87,7 @@ class ProdutoController extends Controller
      */
     public function destroy(Produto $produto)
     {
-        $produtos->delete();
-        return redirect()->route(produtos.index);
+        $produto->delete();
+        return redirect()->route('produtos.index');
     }
 }
