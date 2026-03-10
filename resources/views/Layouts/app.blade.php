@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html>
+<html lang="pt-br">
 <head>
+
 <meta charset="UTF-8">
-<title>Farmácia+</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sistema Farmácia</title>
 
 <style>
 * {
@@ -33,86 +33,105 @@ body {
     margin-bottom: 30px;
 }
 
-.sidebar a {
-    display: block;
-    color: white;
-    text-decoration: none;
-    padding: 12px;
-    border-radius: 12px;
-    margin-bottom: 10px;
-    transition: 0.3s;
+body{
+margin:0;
+font-family:Arial;
+display:flex;
+background:#F5F5F3; /* off white */
 }
 
-.sidebar a:hover {
-    background: rgba(219, 115, 115, 0.2);
-}
+/* MENU LATERAL */
 
-/* MAIN */
-.main {
-    margin-left: 240px;
-    width: 100%;
-}
-
-/* NAVBAR */
-
-.navbar h3 {
-    color: #5d829b;
+.sidebar{
+width:230px;
+height:100vh;
+background:#0D1B2A; /* azul escuro */
+color:white;
+position:fixed;
 }
 
 .logo{
-color:#E53935;
-font-size:22px;
+padding:20px;
+font-size:20px;
 font-weight:bold;
+border-bottom:1px solid rgba(255,255,255,0.1);
 }
 
-.menu a{
+.sidebar a{
+display:block;
 color:white;
-margin-left:15px;
 text-decoration:none;
+padding:14px 20px;
 }
 
-/* BUSCA */
-
-.busca input{
-padding:8px;
-width:250px;
+.sidebar a:hover{
+background:#1B263B;
 }
 
-.card h4 {
-    color: #255779;
+/* CONTEUDO */
+
+.content{
+margin-left:230px;
+width:100%;
 }
 
-.card p {
-    font-size: 22px;
-    font-weight: bold;
-    color: #142b69;
+/* TOPO */
+
+.topbar{
+background:white;
+padding:15px;
+border-bottom:1px solid #ddd;
+display:flex;
+justify-content:space-between;
+}
+
+/* CARDS */
+
+.cards{
+display:flex;
+gap:20px;
+padding:30px;
 }
 
 .card{
 background:white;
-padding:15px;
+padding:20px;
 border-radius:10px;
-text-align:center;
-box-shadow:0 2px 10px rgba(0,0,0,0.1);
+width:220px;
+box-shadow:0 3px 10px rgba(0,0,0,0.1);
 }
 
-.card img{
-width:150px;
-height:150px;
-object-fit:contain;
+/* TABELAS */
+
+.table{
+padding:30px;
 }
 
-input:focus {
-    outline: none;
-    border-color: #305075;
+table{
+width:100%;
+border-collapse:collapse;
+background:white;
 }
 
-.btn2{
+th{
 background:#0D1B2A;
 color:white;
+padding:12px;
+}
+
+td{
+padding:12px;
+border-bottom:1px solid #eee;
+}
+
+/* BOTÕES */
+
+.btn{
+background:#0D1B2A;
+color:white;
+padding:8px 14px;
 border:none;
-padding:8px 12px;
-border-radius:5px;
+border-radius:6px;
 cursor:pointer;
 }
 
@@ -150,29 +169,36 @@ table tr:nth-child(even) {
     align-items: center;
 }
 </style>
+
 </head>
 
 <body>
 
-<div class="navbar">
+<div class="sidebar">
 
-<div class="logo">Farmácia+</div>
+<div class="logo">💊 Farmácia</div>
 
-<div class="busca">
-<form action="/buscar" method="GET">
-<input type="text" name="q" placeholder="Buscar medicamento">
-</form>
-</div>
-
-<div class="menu">
-<a href="/loja">Loja</a>
-<a href="/carrinho">Carrinho</a>
-<a href="/favoritos">Favoritos</a>
-</div>
+<a href="/dashboard">Dashboard</a>
+<a href="/usuarios">Usuários</a>
+<a href="/produtos">Produtos</a>
+<a href="/vendas">Vendas</a>
+<a href="/colaboradores">Colaboradores</a>
 
 </div>
 
-@yield('content')
+<div class="content">
+
+<div class="topbar">
+
+<div>Painel Administrativo</div>
+
+<div>Usuário Logado</div>
+
+</div>
+
+@yield('conteudo')
+
+</div>
 
 </body>
 </html>

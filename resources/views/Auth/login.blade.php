@@ -8,42 +8,43 @@
 <style>
 
 body{
+background:#F5F5F3;
 font-family:Arial;
-background:#f5f6fa;
 display:flex;
-align-items:center;
 justify-content:center;
+align-items:center;
 height:100vh;
 }
 
-.box{
+.login-box{
 background:white;
 padding:40px;
-border-radius:12px;
-width:320px;
-box-shadow:0 5px 15px rgba(0,0,0,0.1);
+width:350px;
+border-radius:10px;
+box-shadow:0 5px 20px rgba(0,0,0,0.1);
 }
 
 h2{
 text-align:center;
-color:#0B1F3A;
+color:#0D1B2A;
 }
 
 input{
 width:100%;
 padding:10px;
-margin:10px 0;
-border-radius:6px;
+margin-top:10px;
 border:1px solid #ddd;
+border-radius:6px;
 }
 
 button{
 width:100%;
+margin-top:15px;
 padding:10px;
-background:#E63946;
+background:#0D1B2A;
 color:white;
 border:none;
-border-radius:8px;
+border-radius:6px;
 }
 
 a{
@@ -58,9 +59,9 @@ margin-top:10px;
 
 <body>
 
-<div class="box">
+<div class="login-box">
 
-<h2>Login</h2>
+<h2>Entrar</h2>
 
 <form method="POST" action="/login">
 
