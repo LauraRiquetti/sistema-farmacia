@@ -17,7 +17,12 @@ return new class extends Migration
             $table->string('email')->unique;
             $table->string('senha');
             $table->date('data_nascimento');
-            $table->string('endereco');
+            $table->integer('CEP');
+            $table->string('rua');
+            $table->string('bairro');
+            $table->string('cidade');
+            $table->string('estado');
+            $table->integer('numero');
             $table->timestamps();
         });
     }

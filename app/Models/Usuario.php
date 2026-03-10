@@ -19,7 +19,12 @@ class Usuario extends Model
         'email',
         'senha',
         'data_nascimento',
-        'endereco'
+        'CEP',
+        'rua',
+        'bairro',
+        'cidade',
+        'estado',
+        'numero'
     ];
 
     public function vendas()
