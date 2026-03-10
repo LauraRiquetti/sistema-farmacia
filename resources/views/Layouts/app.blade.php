@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html>
 <head>
 <meta charset="UTF-8">
-<title>Sistema Farmácia</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Farmácia+</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
 
 <style>
 * {
@@ -54,43 +54,28 @@ body {
 }
 
 /* NAVBAR */
-.navbar {
-    height: 60px;
-    background: white;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0 30px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-}
 
 .navbar h3 {
     color: #5d829b;
 }
 
-/* CONTENT */
-.content {
-    padding: 30px;
+.logo{
+color:#E53935;
+font-size:22px;
+font-weight:bold;
 }
 
-/* CARDS */
-.card-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 20px;
-    margin-top: 20px;
+.menu a{
+color:white;
+margin-left:15px;
+text-decoration:none;
 }
 
-.card {
-    background: white;
-    padding: 25px;
-    border-radius: 20px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-    transition: 0.3s;
-}
+/* BUSCA */
 
-.card:hover {
-    transform: translateY(-5px);
+.busca input{
+padding:8px;
+width:250px;
 }
 
 .card h4 {
@@ -103,16 +88,18 @@ body {
     color: #142b69;
 }
 
-/* FORM */
-.form-group {
-    margin-bottom: 15px;
+.card{
+background:white;
+padding:15px;
+border-radius:10px;
+text-align:center;
+box-shadow:0 2px 10px rgba(0,0,0,0.1);
 }
 
-input, select {
-    width: 100%;
-    padding: 10px;
-    border-radius: 10px;
-    border: 1px solid #ddd;
+.card img{
+width:150px;
+height:150px;
+object-fit:contain;
 }
 
 input:focus {
@@ -120,13 +107,13 @@ input:focus {
     border-color: #305075;
 }
 
-/* BUTTONS */
-.btn {
-    padding: 8px 15px;
-    border-radius: 8px;
-    border: none;
-    cursor: pointer;
-    font-weight: bold;
+.btn2{
+background:#0D1B2A;
+color:white;
+border:none;
+padding:8px 12px;
+border-radius:5px;
+cursor:pointer;
 }
 
 .btn-primary { background: #1f5281; color: white; }
@@ -167,25 +154,25 @@ table tr:nth-child(even) {
 
 <body>
 
-<div class="sidebar">
-    <h2>💊 Farmácia</h2>
-    <a href="/dashboard">Dashboard</a>
-    <a href="/usuarios">Usuários</a>
-    <a href="/produtos">Produtos</a>
-    <a href="/vendas">Vendas</a>
-    <a href="/colaboradores">Colaboradores</a>
+<div class="navbar">
+
+<div class="logo">Farmácia+</div>
+
+<div class="busca">
+<form action="/buscar" method="GET">
+<input type="text" name="q" placeholder="Buscar medicamento">
+</form>
 </div>
 
-<div class="main">
-    <div class="navbar">
-        <h3>Painel Administrativo</h3>
-        <span>Usuário Logado</span>
-    </div>
-
-    <div class="content">
-        @yield('content')
-    </div>
+<div class="menu">
+<a href="/loja">Loja</a>
+<a href="/carrinho">Carrinho</a>
+<a href="/favoritos">Favoritos</a>
 </div>
+
+</div>
+
+@yield('content')
 
 </body>
 </html>
