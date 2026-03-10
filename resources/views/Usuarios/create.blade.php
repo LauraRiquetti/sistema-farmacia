@@ -21,7 +21,15 @@
         <label>Senha</label>
         <input type="password" name="senha" required>
     </div>
+    <div class="form-group">
+        <label>Data de nascimento</label>
+        <input type="date" name="data_nascimento" required>
+    </div>
 
+    <div class="form-group">
+        <label>Endereço</label>
+        <input type="text" name="endereco" required>
+    </div>
     <button class="btn btn-primary">Salvar</button>
 </form>
 
