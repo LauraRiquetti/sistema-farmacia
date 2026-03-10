@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Usuario;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class UsuarioController extends Controller
 {
@@ -40,7 +41,7 @@ class UsuarioController extends Controller
         Usuario::create([
             'nome' =>$request->nome,
             'email' =>$request->email,
-            'senha' =>$request->senha,
+            'senha' =>Hash::make($request->senha),
             'data_nascimento' =>$request->data_nascimento,
             'endereco' =>$request->endereco,
         ]);
