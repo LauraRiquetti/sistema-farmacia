@@ -75,7 +75,7 @@ margin-top:10px;
 
 </form>
 
-<a href="/register">Criar conta</a>
+<a href="resources/views/auth/register.blade.php">Criar conta</a>
 
 </div>
 

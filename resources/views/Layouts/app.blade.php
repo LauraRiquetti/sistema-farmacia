@@ -6,6 +6,32 @@
 <title>Sistema Farmácia</title>
 
 <style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+body {
+    background-color: #ecedee;
+    display: flex;
+}
+
+/* SIDEBAR */
+.sidebar {
+    width: 240px;
+    height: 100vh;
+    background: linear-gradient(180deg, #16678d, #022f49);
+    padding: 20px;
+    color: white;
+    position: fixed;
+}
+
+.sidebar h2 {
+    text-align: center;
+    margin-bottom: 30px;
+}
 
 body{
 margin:0;
@@ -109,6 +135,39 @@ border-radius:6px;
 cursor:pointer;
 }
 
+.btn-primary { background: #1f5281; color: white; }
+.btn-success { background: #19407a; color: white; }
+.btn-danger  { background: #1b547a; color: white; }
+
+/* TABLE */
+table {
+    width: 100%;
+    background: white;
+    border-radius: 15px;
+    overflow: hidden;
+    margin-top: 20px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+}
+
+table th, table td {
+    padding: 15px;
+    text-align: left;
+}
+
+table th {
+    background: #19435f;
+    color: white;
+}
+
+table tr:nth-child(even) {
+    background: #f8f9fa;
+}
+
+.top-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
 </style>
 
 </head>
