@@ -14,7 +14,7 @@
 }
 
 body {
-    background-color: #F4F6F9;
+    background-color: #ecedee;
     display: flex;
 }
 
@@ -22,7 +22,7 @@ body {
 .sidebar {
     width: 240px;
     height: 100vh;
-    background: linear-gradient(180deg, #6C63FF, #20C997);
+    background: linear-gradient(180deg, #16678d, #022f49);
     padding: 20px;
     color: white;
     position: fixed;
@@ -44,7 +44,7 @@ body {
 }
 
 .sidebar a:hover {
-    background: rgba(255,255,255,0.2);
+    background: rgba(219, 115, 115, 0.2);
 }
 
 /* MAIN */
@@ -65,7 +65,7 @@ body {
 }
 
 .navbar h3 {
-    color: #6C63FF;
+    color: #5d829b;
 }
 
 /* CONTENT */
@@ -94,13 +94,13 @@ body {
 }
 
 .card h4 {
-    color: #6C63FF;
+    color: #255779;
 }
 
 .card p {
     font-size: 22px;
     font-weight: bold;
-    color: #20C997;
+    color: #142b69;
 }
 
 /* FORM */
@@ -117,7 +117,7 @@ input, select {
 
 input:focus {
     outline: none;
-    border-color: #6C63FF;
+    border-color: #305075;
 }
 
 /* BUTTONS */
@@ -129,9 +129,9 @@ input:focus {
     font-weight: bold;
 }
 
-.btn-primary { background: #6C63FF; color: white; }
-.btn-success { background: #20C997; color: white; }
-.btn-danger  { background: #ff4d6d; color: white; }
+.btn-primary { background: #1f5281; color: white; }
+.btn-success { background: #19407a; color: white; }
+.btn-danger  { background: #1b547a; color: white; }
 
 /* TABLE */
 table {
@@ -149,7 +149,7 @@ table th, table td {
 }
 
 table th {
-    background: #6C63FF;
+    background: #19435f;
     color: white;
 }
 

@@ -39,13 +39,13 @@ Route::get('/vendas/{id}', [VendaController::class, 'show'])->name('vendas.show'
 Route::get('/vendas/{id}/edit', [VendaController::class, 'edit'])->name('vendas.edit');
 Route::put('/vendas/{id}', [VendaController::class, 'update'])->name('vendas.update');
 
-/*Route::get('/dashboard', function () {
+Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware('auth');
 
 Route::get('/login', function () {
     return view('auth.login');     
-})->name('login');*/
+})->name('login');
 Route::get('/', function () {
     return view('dashboard');
 });

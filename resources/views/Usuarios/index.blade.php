@@ -13,6 +13,8 @@
             <th>ID</th>
             <th>Nome</th>
             <th>Email</th>
+            <th>Data Nascimento</th>
+            <th>Endereço</th>
             <th>Ações</th>
         </tr>
     </thead>
@@ -20,8 +22,10 @@
         @foreach($usuarios as $usuario)
         <tr>
             <td>{{ $usuario->id }}</td>
-            <td>{{ $usuario->name }}</td>
+            <td>{{ $usuario->nome }}</td>
             <td>{{ $usuario->email }}</td>
+            <td>{{ $usuario->data_nascimento}}</td>
+            <td>{{ $usuario->endereco}}</td>
             <td>
                 <a href="{{ route('usuarios.edit', $usuario->id) }}" class="btn btn-success">Editar</a>
             </td>
