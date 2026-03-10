@@ -36,14 +36,24 @@ class UsuarioController extends Controller
             'email' =>'required|string|unique:usuarios,email',
             'senha' => 'required|string',
             'data_nascimento' => 'required|date',
-            'endereco' => 'required|string',
+            'CEP' => 'required|integer',
+            'rua' => 'required|string',
+            'bairro' => 'required|string',
+            'cidade' => 'required|string',
+            'estado' => 'required|string',
+            'numero' => 'required|integer',
         ]);
         Usuario::create([
             'nome' =>$request->nome,
             'email' =>$request->email,
             'senha' =>Hash::make($request->senha),
             'data_nascimento' =>$request->data_nascimento,
-            'endereco' =>$request->endereco,
+            'CEP' =>$request->CEP,
+            'rua' =>$request->rua,
+            'bairro' =>$request->bairro,
+            'cidade' =>$request->cidade,
+            'estado' =>$request->estado,
+            'numero' =>$request->numero,
         ]);
 
         return redirect()->route('usuarios.index')
@@ -76,7 +86,12 @@ class UsuarioController extends Controller
             'email' => ['required', 'string', 'unique'],
             'senha' => ['required', 'string'],
             'data_nascimento' => ['required', 'date'],
-            'endereco' => ['required', 'string'],
+            'CEP' => ['required', 'integer'],
+            'rua' => ['required', 'string'],
+            'bairro' => ['required', 'string'],
+            'cidade' => ['required', 'string'],
+            'estado' => ['required', 'string'],
+            'numero' => ['required', 'integer'],
         ]);
 
         $usuario->update([
@@ -84,7 +99,12 @@ class UsuarioController extends Controller
             'email' =>$validated['email'],
             'senha' =>$validated['senha'],
             'data_nascimento' =>$validated['data_nascimento'],
-            'endereco' =>$validated['endereco'],
+            'CEP' =>$validated['CEP'],
+            'rua' =>$validated['rua'],
+            'bairro' =>$validated['bairro'],
+            'cidade' =>$validated['cidade'],
+            'estado' =>$validated['estado'],
+            'numero' =>$validated['numeor'],
         ]);
 
         return redirect()->route('usuarios.index');
