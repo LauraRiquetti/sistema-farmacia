@@ -4,6 +4,9 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UsuarioController;
 use App\Http\Controllers\ProdutoController;
 use App\Http\Controllers\VendaController;
+use App\Http\Controllers\DashboardController;
+
+Route::get('/dashboard', [DashboardController::class, 'index']);
 
 Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('/admin', function () {
@@ -43,7 +46,7 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware('auth');
 
-Route::get('/login', function () {
+Route::get('/', function () {
     return view('auth.login');     
 })->name('login');
 
@@ -52,12 +55,6 @@ Route::get('/login', function () {
 })->name('register');
 
 
-Route::get('/', function () {
-    return view('dashboard');
-});
-Route::get('/dashboard', function () {
-    return view('dashboard');
-});
 Route::get('/loja', function () {
     return view('loja.index');
 });
