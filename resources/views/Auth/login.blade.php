@@ -1,65 +1,30 @@
-<!DOCTYPE html>
-<html>
+@extends('layouts.app')
 
-<head>
+@section('content')
 
-<title>Login</title>
+<div class="form-box">
 
-<style>
+<h2>
 
-body{
-background:#F5F5F3;
-font-family:Arial;
-display:flex;
-justify-content:center;
-align-items:center;
-height:100vh;
-}
+Entrar
 
-.login-box{
-background:white;
-padding:40px;
-width:350px;
-border-radius:10px;
-box-shadow:0 5px 20px rgba(0,0,0,0.1);
-}
+</h2>
 
-h2{
-text-align:center;
-color:#0D1B2A;
-}
+<input type="email" placeholder="Email">
 
-input{
-width:100%;
-padding:10px;
-margin-top:10px;
-border:1px solid #ddd;
-border-radius:6px;
-}
+<input type="password" placeholder="Senha">
 
-button{
-width:100%;
-margin-top:15px;
-padding:10px;
-background:#0D1B2A;
-color:white;
-border:none;
-border-radius:6px;
-}
+<button class="botao">
 
-a{
-display:block;
-text-align:center;
-margin-top:10px;
-}
+Entrar
 
-</style>
+</button>
 
-</head>
+<br><br>
 
-<body>
+<a href="/cadastro">
 
-<div class="login-box">
+Criar conta
 
 <h2>Entrar</h2>
 
@@ -80,5 +45,4 @@ margin-top:10px;
 
 </div>
 
-</body>
-</html>
+@endsection

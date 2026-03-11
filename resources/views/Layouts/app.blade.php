@@ -1,204 +1,227 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
 
-<meta charset="UTF-8">
-<title>Sistema Farmácia</title>
+    <meta charset="UTF-8">
 
-<style>
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Segoe UI', sans-serif;
-}
+    <title>
+        Farmácia Online
+    </title>
 
-body {
-    background-color: #ecedee;
-    display: flex;
-}
+    <style>
 
-/* SIDEBAR */
-.sidebar {
-    width: 240px;
-    height: 100vh;
-    background: linear-gradient(180deg, #16678d, #022f49);
-    padding: 20px;
-    color: white;
-    position: fixed;
-}
+        body{
+            margin:0;
+            font-family:Arial, Helvetica, sans-serif;
+            background:#f5f5f5;
+        }
 
-.sidebar h2 {
-    text-align: center;
-    margin-bottom: 30px;
-}
+        header{
+            background:#0b2a4a;
+            color:white;
+            padding:15px;
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
+        }
 
-body{
-margin:0;
-font-family:Arial;
-display:flex;
-background:#F5F5F3; /* off white */
-}
+        .logo{
+            font-size:22px;
+            font-weight:bold;
+        }
 
-/* MENU LATERAL */
+        .menu a{
+            color:white;
+            margin-left:15px;
+            text-decoration:none;
+            font-size:14px;
+        }
 
-.sidebar{
-width:230px;
-height:100vh;
-background:#0D1B2A; /* azul escuro */
-color:white;
-position:fixed;
-}
+        .busca{
+            padding:15px;
+        }
 
-.logo{
-padding:20px;
-font-size:20px;
-font-weight:bold;
-border-bottom:1px solid rgba(255,255,255,0.1);
-}
+        .busca input{
+            width:100%;
+            padding:10px;
+            border-radius:20px;
+            border:1px solid #ccc;
+        }
 
-.sidebar a{
-display:block;
-color:white;
-text-decoration:none;
-padding:14px 20px;
-}
+        .container{
+            padding:15px;
+        }
 
-.sidebar a:hover{
-background:#1B263B;
-}
+        .carrossel img{
+            width:100%;
+            border-radius:10px;
+        }
 
-/* CONTEUDO */
+        .titulo{
+            font-size:20px;
+            color:#0b2a4a;
+            margin-top:20px;
+        }
 
-.content{
-margin-left:230px;
-width:100%;
-}
+        .produtos{
+            display:grid;
+            grid-template-columns:repeat(4,1fr);
+            gap:15px;
+            margin-top:10px;
+        }
 
-/* TOPO */
+        .produto{
+            background:white;
+            border-radius:10px;
+            padding:10px;
+            position:relative;
+            text-align:center;
+        }
 
-.topbar{
-background:white;
-padding:15px;
-border-bottom:1px solid #ddd;
-display:flex;
-justify-content:space-between;
-}
+        .produto img{
+            width:100%;
+            height:120px;
+            object-fit:contain;
+        }
 
-/* CARDS */
+        .desconto{
+            position:absolute;
+            top:5px;
+            left:5px;
+            background:#e30613;
+            color:white;
+            font-size:12px;
+            padding:4px 6px;
+            border-radius:5px;
+        }
 
-.cards{
-display:flex;
-gap:20px;
-padding:30px;
-}
+        .preco-antigo{
+            text-decoration:line-through;
+            font-size:12px;
+            color:#999;
+        }
 
-.card{
-background:white;
-padding:20px;
-border-radius:10px;
-width:220px;
-box-shadow:0 3px 10px rgba(0,0,0,0.1);
-}
+        .preco{
+            color:#0b2a4a;
+            font-weight:bold;
+            font-size:18px;
+        }
 
-/* TABELAS */
+        .botao{
+            background:#e30613;
+            color:white;
+            border:none;
+            padding:8px;
+            width:100%;
+            border-radius:5px;
+            margin-top:8px;
+            cursor:pointer;
+        }
 
-.table{
-padding:30px;
-}
+        footer{
+            position:fixed;
+            bottom:0;
+            width:100%;
+            background:white;
+            border-top:1px solid #ddd;
+            display:flex;
+            justify-content:space-around;
+            padding:10px;
+        }
 
-table{
-width:100%;
-border-collapse:collapse;
-background:white;
-}
+        footer div{
+            text-align:center;
+            font-size:12px;
+        }
 
-th{
-background:#0D1B2A;
-color:white;
-padding:12px;
-}
+        .form-box{
+            max-width:400px;
+            margin:auto;
+            background:white;
+            padding:25px;
+            border-radius:10px;
+        }
 
-td{
-padding:12px;
-border-bottom:1px solid #eee;
-}
+        input{
+            width:100%;
+            padding:10px;
+            margin-top:10px;
+            border-radius:6px;
+            border:1px solid #ccc;
+        }
 
-/* BOTÕES */
+        table{
+            width:100%;
+            background:white;
+            border-radius:10px;
+        }
 
-.btn{
-background:#0D1B2A;
-color:white;
-padding:8px 14px;
-border:none;
-border-radius:6px;
-cursor:pointer;
-}
+        th,td{
+            padding:12px;
+            border-bottom:1px solid #eee;
+        }
 
-.btn-primary { background: #1f5281; color: white; }
-.btn-success { background: #19407a; color: white; }
-.btn-danger  { background: #1b547a; color: white; }
-
-/* TABLE */
-table {
-    width: 100%;
-    background: white;
-    border-radius: 15px;
-    overflow: hidden;
-    margin-top: 20px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-}
-
-table th, table td {
-    padding: 15px;
-    text-align: left;
-}
-
-table th {
-    background: #19435f;
-    color: white;
-}
-
-table tr:nth-child(even) {
-    background: #f8f9fa;
-}
-
-.top-bar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-</style>
+    </style>
 
 </head>
 
 <body>
 
-<div class="sidebar">
+<header>
 
-<div class="logo">💊 Farmácia</div>
+    <div class="logo">
+        Farmácia Online
+    </div>
 
-<a href="/dashboard">Dashboard</a>
-<a href="/usuarios">Usuários</a>
-<a href="/produtos">Produtos</a>
-<a href="/vendas">Vendas</a>
-<a href="/colaboradores">Colaboradores</a>
+    <div class="menu">
 
-</div>
+        <a href="/">
+            Início
+        </a>
 
-<div class="content">
+        <a href="/carrinho">
+            Carrinho
+        </a>
 
-<div class="topbar">
+        <a href="/login">
+            Entrar
+        </a>
 
-<div>Painel Administrativo</div>
+    </div>
 
-<div>Usuário Logado</div>
+</header>
 
-</div>
+@yield('content')
 
-@yield('conteudo')
+<footer>
 
-</div>
+    <div>
+        🏠 <br>
+        Início
+    </div>
+
+    <div>
+        🔎 <br>
+        Buscar
+    </div>
+
+    <div>
+        ⭐ <br>
+        Ofertas
+    </div>
+
+    <div>
+        📦 <br>
+        Pedidos
+    </div>
+
+    <div>
+        👤 <br>
+        Perfil
+    </div>
+
+</footer>
 
 </body>
 </html>
