@@ -16,11 +16,11 @@ Criar Conta
 
 <input type="password" placeholder="Senha">
 
-<button class="botao">
+<a href="/login"><button class="botao">
 
 Cadastrar
 
-</button>
+</button></a>
 
 </div>
 
