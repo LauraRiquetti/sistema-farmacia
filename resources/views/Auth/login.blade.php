@@ -71,11 +71,15 @@ margin-top:10px;
 
 <input type="password" name="password" placeholder="Senha">
 
-<button>Entrar</button>
+<a href="{{ route('home') }}">
+    <button>Entrar</button>
+</a>
 
 </form>
 
-<a href="resources/views/auth/register.blade.php">Criar conta</a>
+<p style="text-align:center,margin-top:10px,"> Não tem conta?
+<a href="/register">Cadastre-se</a>
+</p>
 
 </div>
 
