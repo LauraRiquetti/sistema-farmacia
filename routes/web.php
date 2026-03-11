@@ -58,3 +58,4 @@ Route::get('/loja', function () {
 });
 
 Route::get('/cep/{cep}', [UsuarioController::class, 'buscarCep']);
+Route::get('/carrinho', [VendasController::class, 'index']);
