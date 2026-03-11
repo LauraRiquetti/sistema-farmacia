@@ -150,29 +150,20 @@ Ofertas da Semana
 </div>
 
 <div class="produtos">
+    @forelse($produtos as $produto)
+        <div class="card">
+            <img src="/storage/{{$produto->imagem}}">
+            <h4>{{$produto->nome}}</h4>
+            <p>R$ {{$produto->valor}}</p>
 
-@foreach($produtos as $produto)
-
-<div class="card">
-
-<img src="/storage/{{$produto->imagem}}">
-
-<h4>{{$produto->nome}}</h4>
-
-<p>R$ {{$produto->preco}}</p>
-
-<form action="/carrinho/add/{{$produto->id}}" method="POST">
-
-@csrf
-
-<button class="btn">Comprar</button>
-
-</form>
-
-</div>
-
-@endforeach
-
+            <form action="/carrinho/add/{{$produto->id}}" method="POST">
+                @csrf
+                <button class="btn">Comprar</button>
+            </form>
+        </div>
+    @empty
+        <p>Não há produtos disponíveis no momento.</p>
+    @endforelse
 </div>
 
 </body>

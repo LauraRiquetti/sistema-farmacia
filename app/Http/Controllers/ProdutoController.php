@@ -7,9 +7,7 @@ use Illuminate\Http\Request;
 
 class ProdutoController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+   
     public function index()
     {
         $produtos = Produto::orderByDesc('id')->get();
@@ -74,7 +72,7 @@ class ProdutoController extends Controller
             'valor' => ['required', 'numeric'],
         ]);
 
-        $produtos->update([
+        $produto->update([
             'nome' =>$validated['nome'],
             'quantidade' =>$validated['quantidade'],
             'valor' =>$validated['valor'],
@@ -90,4 +88,5 @@ class ProdutoController extends Controller
         $produto->delete();
         return redirect()->route('produtos.index');
     }
+    
 }

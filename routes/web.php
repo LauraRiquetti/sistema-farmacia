@@ -5,6 +5,8 @@ use App\Http\Controllers\UsuarioController;
 use App\Http\Controllers\ProdutoController;
 use App\Http\Controllers\VendaController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\AuthController;
 
 Route::get('/dashboard', [DashboardController::class, 'index']);
 
@@ -14,17 +16,10 @@ Route::middleware(['auth', 'admin'])->group(function () {
     });
 });
 
-Route::get('/', function () {
-    return view('welcome');
-});
 
-
-Route::get('/produtos', [ProdutoController::class, 'index'])->name('produtos.index');
-Route::get('/produtos/create', [ProdutoController::class, 'create'])->name('produtos.create');
-Route::post('/produtos', [ProdutoController::class, 'store'])->name('produtos.store');
-Route::get('/produtos/{id}', [ProdutoController::class, 'show'])->name('produtos.show');
-Route::get('/produtos/{id}/edit', [ProdutoController::class, 'edit'])->name('produtos.edit');
-Route::put('/produtos/{id}', [ProdutoController::class, 'update'])->name('produtos.update');
+Route::get('/produtos', [ProdutoController::class, 'index']);
+Route::get('/produtos/create', [ProdutoController::class, 'create']);
+Route::post('/produtos', [ProdutoController::class, 'store']);
 
 
 Route::get('/usuarios', [UsuarioController::class, 'index'])->name('usuarios.index');
@@ -42,22 +37,24 @@ Route::get('/vendas/{id}', [VendaController::class, 'show'])->name('vendas.show'
 Route::get('/vendas/{id}/edit', [VendaController::class, 'edit'])->name('vendas.edit');
 Route::put('/vendas/{id}', [VendaController::class, 'update'])->name('vendas.update');
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware('auth');
 
-Route::get('/', function () {
-    return view('auth.login');     
-})->name('login');
+Route::get('/', [HomeController::class, 'index']);
+Route::get('/home', [HomeController::class, 'index'])->name('home');
 
+Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
+
+Route::post('/login', [AuthController::class, 'login']);
 Route::get('/login', function () {
+    return view('auth.login');
+});
+
+Route::get('/register', function () {
     return view('auth.register');
 })->name('register');
-
+Route::post('/register', [UsuarioController::class, 'store']);
 
 Route::get('/loja', function () {
     return view('loja.index');
 });
-Route::get('/loja', function () {
-    return view('loja.index');
-});
+
+Route::get('/cep/{cep}', [UsuarioController::class, 'buscarCep']);

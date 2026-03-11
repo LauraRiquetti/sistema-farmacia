@@ -73,6 +73,10 @@ border-radius:6px;
 
 <input type="password" name="password" placeholder="Senha">
 
+<p style="text-alingn:center:margin-top:10x;">já tem conta?
+<a href="/login">Entrar</a>
+
+<form action="/home">
 <button>Cadastrar</button>
 
 </form>
