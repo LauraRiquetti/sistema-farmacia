@@ -4,27 +4,6 @@
 
 <div class="form-box">
 
-<h2>
-
-Entrar
-
-</h2>
-
-<input type="email" placeholder="Email">
-
-<input type="password" placeholder="Senha">
-
-<button class="botao">
-
-Entrar
-
-</button>
-
-<br><br>
-
-<a href="/cadastro">
-
-Criar conta
 
 <h2>Entrar</h2>
 
@@ -40,7 +19,7 @@ Criar conta
 </form>
 
 <p style="text-align:center,margin-top:10px,"> Não tem conta?
-<a href="/register">Cadastre-se</a>
+<a href="/cadastro">Cadastre-se</a>
 </p>
 
 </div>
