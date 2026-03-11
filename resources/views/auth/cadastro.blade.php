@@ -6,9 +6,11 @@
 
 <h2>
 
-Entrar
+Criar Conta
 
 </h2>
+
+<input type="text" placeholder="Nome">
 
 <input type="email" placeholder="Email">
 
@@ -16,17 +18,9 @@ Entrar
 
 <button class="botao">
 
-Entrar
+Cadastrar
 
 </button>
-
-<br><br>
-
-<a href="/cadastro">
-
-Criar conta
-
-</a>
 
 </div>
 
