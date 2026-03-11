@@ -73,7 +73,7 @@ margin-top:10px;
 
 <button>Entrar</button>
 
-</form>
+</form>     
 
 <a href="resources/views/auth/register.blade.php">Criar conta</a>
 

@@ -163,6 +163,8 @@ Ofertas da Semana
 
 <form action="/carrinho/add/{{$produto->id}}" method="POST">
 
+<img src="/imagem/dipirona.jpg">
+
 @csrf
 
 <button class="btn">Comprar</button>
