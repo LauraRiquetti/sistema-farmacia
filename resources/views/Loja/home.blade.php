@@ -1,77 +1,171 @@
-@extends('layouts.app')
+<!DOCTYPE html>
+<html>
 
-@section('content')
+<head>
 
-<div class="busca">
+<title>Farmácia Online</title>
 
-    <input
-        type="text"
-        placeholder="Buscar medicamentos..."
-    >
+<style>
+
+body{
+
+margin:0;
+font-family:Arial;
+background:#F5F5F3;
+
+}
+
+/* TOPO */
+
+.header{
+
+background:#0D1B2A;
+color:white;
+padding:15px;
+display:flex;
+justify-content:space-between;
+
+}
+
+/* BANNER */
+
+.banner{
+
+background:url('/img/banner-farmacia.jpg');
+
+height:300px;
+
+display:flex;
+
+align-items:center;
+
+justify-content:center;
+
+color:white;
+
+font-size:40px;
+
+}
+
+/* CATEGORIAS */
+
+.categorias{
+
+display:flex;
+
+justify-content:center;
+
+gap:20px;
+
+padding:30px;
+
+}
+
+.cat{
+
+background:white;
+
+padding:20px;
+
+border-radius:10px;
+
+box-shadow:0 3px 10px rgba(0,0,0,0.1);
+
+}
+
+/* PRODUTOS */
+
+.produtos{
+
+display:flex;
+
+gap:20px;
+
+flex-wrap:wrap;
+
+padding:30px;
+
+justify-content:center;
+
+}
+
+.card{
+
+width:200px;
+
+background:white;
+
+padding:15px;
+
+border-radius:10px;
+
+box-shadow:0 3px 10px rgba(0,0,0,0.1);
+
+}
+
+.card img{
+
+width:100%;
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="header">
+
+<div>💊 Farmácia</div>
+
+<div>
+
+<a href="/login" style="color:white">Entrar</a>
+
+<a href="/carrinho" style="color:white">Carrinho</a>
 
 </div>
 
-<div class="container">
+</div>
 
-<div class="carrossel">
+<div class="banner">
 
-<img src="https://img.freepik.com/free-vector/online-pharmacy-banner_107791-1191.jpg">
+Ofertas da Semana
 
 </div>
 
+<div class="categorias">
 
-<h2 class="titulo">
+<div class="cat">Farmácia</div>
 
-Ofertas da semana
+<div class="cat">Beleza</div>
 
-</h2>
+<div class="cat">Infantil</div>
 
+<div class="cat">Vitaminas</div>
+
+<div class="cat">Pet</div>
+
+</div>
 
 <div class="produtos">
+    @forelse($produtos as $produto)
+        <div class="card">
+            <img src="/storage/{{$produto->imagem}}">
+            <h4>{{$produto->nome}}</h4>
+            <p>R$ {{$produto->valor}}</p>
 
-@foreach($produtos as $produto)
-
-<div class="produto">
-
-<div class="desconto">
-
--20%
-
+            <form action="/carrinho/add/{{$produto->id}}" method="POST">
+                @csrf
+                <button class="btn">Comprar</button>
+            </form>
+        </div>
+    @empty
+        <p>Não há produtos disponíveis no momento.</p>
+    @endforelse
 </div>
 
-<img src="{{ $produto->imagem }}">
+</body>
 
-<h4>
-
-{{ $produto->nome }}
-
-</h4>
-
-<div class="preco-antigo">
-
-R$ {{ $produto->preco_antigo }}
-
-</div>
-
-<div class="preco">
-
-R$ {{ $produto->preco }}
-
-</div>
-
-<button class="botao">
-
-Adicionar ao carrinho
-
-</button>
-
-</div>
-
-@endforeach
-
-</div>
-
-</div>
-
-@endsection
-
+</html>
