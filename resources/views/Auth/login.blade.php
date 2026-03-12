@@ -162,7 +162,7 @@ body
 
         <a 
             class="link-auth"
-            href="/register"
+            href="/cadastro"
         >
 
             Não tem conta? Cadastre-se
