@@ -35,7 +35,7 @@ class UsuarioController extends Controller
         $request->validate([
             'nome' => 'required|string',
             'email' =>'required|string|unique:usuarios,email',
-            'senha' => 'required|string',
+            'password' => 'required|min:6',
             'data_nascimento' => 'required|date',
             'CEP' => 'required|integer',
             'rua' => 'required|string',
@@ -47,7 +47,7 @@ class UsuarioController extends Controller
         Usuario::create([
             'nome' =>$request->nome,
             'email' =>$request->email,
-            'senha' =>Hash::make($request->senha),
+            'password' => Hash::make($request->password),
             'data_nascimento' =>$request->data_nascimento,
             'CEP' =>$request->CEP,
             'rua' =>$request->rua,
@@ -57,8 +57,6 @@ class UsuarioController extends Controller
             'numero' =>$request->numero,
         ]);
         return redirect('/login');
-        return redirect()->route('usuarios.index')
-            ->with('sucess', 'Usuario cadastrado com sucesso!');
     }
 
     public function show(Usuario $cliente)
@@ -76,7 +74,7 @@ class UsuarioController extends Controller
         $validated = $request->validate([
             'nome' => ['required', 'string'],
             'email' => ['required', 'string', 'unique'],
-            'senha' => ['required', 'string'],
+            'password' => ['required', 'string'],
             'data_nascimento' => ['required', 'date'],
             'CEP' => ['required', 'integer'],
             'rua' => ['required', 'string'],
@@ -89,7 +87,7 @@ class UsuarioController extends Controller
         $usuario->update([
             'nome' => $validated['nome'],
             'email' =>$validated['email'],
-            'senha' =>$validated['senha'],
+            'password' =>$validated['password'],
             'data_nascimento' =>$validated['data_nascimento'],
             'CEP' =>$validated['CEP'],
             'rua' =>$validated['rua'],

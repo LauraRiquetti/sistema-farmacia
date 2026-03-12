@@ -8,72 +8,70 @@
         Criar Conta
     </h2>
 
-
-    <input
-        type="text"
-        placeholder="Nome completo"
-    >
-
-
-    <input
-        type="email"
-        placeholder="Email"
-    >
+    <form method="POST" action="{{ route('usuarios.store') }}">
+        @csrf
+        <input
+            type="text"
+            placeholder="Nome completo"
+        >
 
 
-    <input
-        type="text"
-        id="cpf"
-        placeholder="CPF"
-    >
+        <input
+            type="email"
+            placeholder="Email"
+        >
 
 
-    <input
-        type="text"
-        id="telefone"
-        placeholder="Telefone"
-    >
+        <input
+            type="text"
+            id="cpf"
+            placeholder="CPF"
+        >
 
 
-    <input
-        type="text"
-        id="cep"
-        placeholder="CEP"
-    >
+        <input
+            type="text"
+            id="telefone"
+            placeholder="Telefone"
+        >
 
 
-    <input
-        type="text"
-        id="rua"
-        placeholder="Rua"
-    >
+        <input
+            type="text"
+            id="cep"
+            placeholder="CEP"
+        >
 
 
-    <input
-        type="text"
-        id="bairro"
-        placeholder="Bairro"
-    >
+        <input
+            type="text"
+            id="rua"
+            placeholder="Rua"
+        >
 
 
-    <input
-        type="text"
-        id="cidade"
-        placeholder="Cidade"
-    >
+        <input
+            type="text"
+            id="bairro"
+            placeholder="Bairro"
+        >
 
 
-    <input
-        type="password"
-        placeholder="Senha"
-    >
+        <input
+            type="text"
+            id="cidade"
+            placeholder="Cidade"
+        >
 
 
-    <button class="botao">
+        <input
+            type="password"
+            placeholder="Senha"
+        >
 
-        Cadastrar
 
-    </button>
+        <button class="botao" type="submit">Cadastrar</button>
+    </form>
 
 </div>
 
