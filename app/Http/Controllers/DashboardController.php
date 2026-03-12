@@ -12,6 +12,6 @@ class DashboardController extends Controller
         $usuarios = Usuario::count();
         $produtos = Produto::count();
 
-        return view('dashboard', compact('usuarios', 'produtos'));
+        return view('adm.dashboard', compact('usuarios', 'produtos'));
     }
 }

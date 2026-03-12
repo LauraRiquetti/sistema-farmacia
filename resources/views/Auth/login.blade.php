@@ -15,7 +15,7 @@
 
 <input type="password" name="password" placeholder="Senha">
 
-<a href="{{ route('home') }}"><button type="button" class="btn btn-primary">Entrar</button></a>
+<button type="submit">Entrar</button>
 </form>
 
 <p style="text-align:center,margin-top:10px,"> Não tem conta?

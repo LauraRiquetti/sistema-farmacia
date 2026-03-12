@@ -40,6 +40,9 @@ Route::get('/login', function () {
     return view('auth.login');
 });
 
+Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
+Route::post('/login', [AuthController::class, 'login']);
+
 Route::get('/cadastro', function () {
     return view('auth.cadastro');
 })->name('cadastro');
@@ -51,7 +54,8 @@ Route::get('/loja', function () {
 
 Route::get('/cep/{cep}', [UsuarioController::class, 'buscarCep']);
 
-Route::get('/dashboard', [DashboardController::class, 'index']);
+Route::get('/dashboard', [DashboardController::class, 'index'])
+    ->middleware(['auth','admin']);
 
 Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('/admin', function () {

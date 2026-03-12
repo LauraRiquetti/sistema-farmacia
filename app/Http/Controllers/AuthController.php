@@ -17,15 +17,25 @@ class AuthController extends Controller
     public function login(Request $request)
     {
         $credentials = $request->validate([
-            'email' => ['required', 'email'],
-            'password' => ['required'],
+        'email' => ['required', 'email'],
+        'password' => ['required'],
         ]);
 
         if (Auth::attempt($credentials)) {
+
             $request->session()->regenerate();
-            return redirect()->intended('home');
+
+            $user = Auth::user(); // agora o usuário existe
+
+            if ($user->role == 'admin') {
+                return redirect('/dashboard');
+            } else {
+                return redirect('/home');
+            }
         }
 
-        return back()->withErrors(['email' => 'Usuário ou senha inválidos']);
+        return back()->withErrors([
+            'email' => 'Usuário ou senha inválidos'
+        ]);
     }
 }
