@@ -17,21 +17,22 @@ class AuthController extends Controller
     public function login(Request $request)
     {
         $credentials = $request->validate([
-        'email' => ['required', 'email'],
-        'password' => ['required'],
+            'email' => ['required','email'],
+            'password' => ['required'],
         ]);
 
         if (Auth::attempt($credentials)) {
 
             $request->session()->regenerate();
 
-            $user = Auth::user(); // agora o usuário existe
+            $user = Auth::user();
 
             if ($user->role == 'admin') {
                 return redirect('/dashboard');
             } else {
                 return redirect('/home');
             }
+
         }
 
         return back()->withErrors([
