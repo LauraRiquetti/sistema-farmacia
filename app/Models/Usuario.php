@@ -10,14 +10,12 @@ class Usuario extends Model
 {
     use HasFactory;
 
-   
-
     protected $table = 'usuarios';
 
     protected $fillable = [
+        'user_id',
         'nome',
         'email',
-        'senha',
         'data_nascimento',
         'CEP',
         'rua',
@@ -26,6 +24,10 @@ class Usuario extends Model
         'estado',
         'numero'
     ];
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 
     public function vendas()
     {
