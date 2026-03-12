@@ -64,6 +64,7 @@ body
     padding: 12px 40px;
     border-radius: 6px;
     border: 1px solid #ccc;
+    box-sizing: border-box;
 }
 
 
@@ -162,7 +163,7 @@ body
 
         <a 
             class="link-auth"
-            href="/register"
+            href="/cadastro"
         >
 
             Não tem conta? Cadastre-se
