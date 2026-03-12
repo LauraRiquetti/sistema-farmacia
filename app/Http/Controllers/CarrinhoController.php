@@ -31,6 +31,6 @@ class CarrinhoController extends Controller
     {
         $carrinho = session()->get('carrinho', []);
 
-        return view('carrinho', compact('carrinho'));
+        return view('loja.carrinho', compact('carrinho'));
     }
 }

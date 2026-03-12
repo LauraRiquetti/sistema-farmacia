@@ -85,11 +85,18 @@ document.getElementById("cep").addEventListener("blur", function(){
 
     let cep = this.value.replace(/\D/g,'');
 
+    if(cep.length != 8){
+        return;
+    }
+
     fetch("https://viacep.com.br/ws/"+cep+"/json/")
-
     .then(res => res.json())
-
     .then(dados => {
+
+        if(dados.erro){
+            alert("CEP não encontrado");
+            return;
+        }
 
         document.getElementById("rua").value = dados.logradouro;
         document.getElementById("bairro").value = dados.bairro;
@@ -99,33 +106,5 @@ document.getElementById("cep").addEventListener("blur", function(){
 
 });
 
-
-
-document.getElementById("telefone").addEventListener("input", function(){
-
-    let x = this.value.replace(/\D/g,'');
-
-    x = x.replace(/^(\d{2})(\d)/g,"($1) $2");
-    x = x.replace(/(\d{5})(\d)/,"$1-$2");
-
-    this.value = x;
-
-});
-
-
-
-document.getElementById("cpf").addEventListener("input", function(){
-
-    let x = this.value.replace(/\D/g,'');
-
-    x = x.replace(/(\d{3})(\d)/,"$1.$2");
-    x = x.replace(/(\d{3})(\d)/,"$1.$2");
-    x = x.replace(/(\d{3})(\d{1,2})$/,"$1-$2");
-
-    this.value = x;
-
-});
-
 </script>
-
 @endsection
