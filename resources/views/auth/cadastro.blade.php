@@ -2,107 +2,194 @@
 
 @section('content')
 
-<div class="form-box">
+<style>
 
-    <h2>
-        Criar Conta
-    </h2>
-
-    <form method="POST" action="{{ route('usuarios.store') }}">
-        @csrf
-        <input
-            type="text"
-            placeholder="Nome completo"
-        >
+body
+{
+    background: #f4f4f4;
+    font-family: Arial, Helvetica, sans-serif;
+}
 
 
-        <input
-            type="email"
-            placeholder="Email"
-        >
+
+.container-auth
+{
+    height: 95vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 
 
-        <input
-            type="text"
-            id="cpf"
-            placeholder="CPF"
-        >
+
+.card-auth
+{
+    background: white;
+    padding: 40px;
+    width: 420px;
+    border-radius: 10px;
+    box-shadow: 0px 5px 20px rgba(0,0,0,0.1);
+}
 
 
-        <input
-            type="text"
-            id="telefone"
-            placeholder="Telefone"
-        >
+
+.card-auth h2
+{
+    margin-bottom: 25px;
+}
 
 
-        <input
-            type="text"
-            id="cep"
-            placeholder="CEP"
-        >
+
+.input-group
+{
+    position: relative;
+    margin-bottom: 15px;
+}
 
 
-        <input
-            type="text"
-            id="rua"
-            placeholder="Rua"
-        >
+
+.input-auth
+{
+    width: 100%;
+    padding: 12px 40px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+}
 
 
-        <input
-            type="text"
-            id="bairro"
-            placeholder="Bairro"
-        >
+
+.icon
+{
+    position: absolute;
+    left: 12px;
+    top: 12px;
+}
 
 
-        <input
-            type="text"
-            id="cidade"
-            placeholder="Cidade"
-        >
+
+.btn-auth
+{
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 6px;
+    background: #d40000;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+}
 
 
-        <input
-            type="password"
-            placeholder="Senha"
-        >
+
+.btn-auth:hover
+{
+    background: #a80000;
+}
+
+</style>
 
 
-        <button class="botao" type="submit">Cadastrar</button>
-    </form>
+
+<div class="container-auth">
+
+    <div class="card-auth">
+
+        <h2>Criar Conta</h2>
+
+        <form>
+
+            <div class="input-group">
+
+                <span class="icon">👤</span>
+
+                <input class="input-auth" type="text" placeholder="Nome completo">
+
+            </div>
+
+
+            <div class="input-group">
+
+                <span class="icon">📧</span>
+
+                <input class="input-auth" type="email" placeholder="Email">
+
+            </div>
+
+
+            <div class="input-group">
+
+                <span class="icon">🪪</span>
+
+                <input class="input-auth" type="text" placeholder="CPF">
+
+            </div>
+
+
+            <div class="input-group">
+
+                <span class="icon">📱</span>
+
+                <input class="input-auth" type="text" placeholder="Telefone">
+
+            </div>
+
+
+            <div class="input-group">
+
+                <span class="icon">📍</span>
+
+                <input class="input-auth" type="text" placeholder="CEP">
+
+            </div>
+
+
+            <div class="input-group">
+
+                <span class="icon">🏠</span>
+
+                <input class="input-auth" type="text" placeholder="Rua">
+
+            </div>
+
+
+            <div class="input-group">
+
+                <span class="icon">📍</span>
+
+                <input class="input-auth" type="text" placeholder="Bairro">
+
+            </div>
+
+
+            <div class="input-group">
+
+                <span class="icon">🌆</span>
+
+                <input class="input-auth" type="text" placeholder="Cidade">
+
+            </div>
+
+
+            <div class="input-group">
+
+                <span class="icon">🔒</span>
+
+                <input class="input-auth" type="password" placeholder="Senha">
+
+            </div>
+
+
+            <button class="btn-auth">
+
+                Cadastrar
+
+            </button>
+
+        </form>
+
+    </div>
 
 </div>
 
-
-
-<script>
-
-document.getElementById("cep").addEventListener("blur", function(){
-
-    let cep = this.value.replace(/\D/g,'');
-
-    if(cep.length != 8){
-        return;
-    }
-
-    fetch("https://viacep.com.br/ws/"+cep+"/json/")
-    .then(res => res.json())
-    .then(dados => {
-
-        if(dados.erro){
-            alert("CEP não encontrado");
-            return;
-        }
-
-        document.getElementById("rua").value = dados.logradouro;
-        document.getElementById("bairro").value = dados.bairro;
-        document.getElementById("cidade").value = dados.localidade;
-
-    });
-
-});
-
-</script>
 @endsection
