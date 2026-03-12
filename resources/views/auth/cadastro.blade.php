@@ -54,6 +54,7 @@ body
     padding: 12px 40px;
     border-radius: 6px;
     border: 1px solid #ccc;
+    box-sizing: border-box;
 }
 
 
@@ -150,6 +151,15 @@ body
 
                 <input class="input-auth" type="text" placeholder="Rua">
 
+            </div>
+
+
+            <div class="input-gruop flex-1">
+
+                <span class="icon"></span>
+
+                <input class="input-auth" type="text" placeholder="Nº">
+                
             </div>
 
 
