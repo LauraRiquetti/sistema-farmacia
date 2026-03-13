@@ -57,7 +57,7 @@ class UsuarioController extends Controller
             'estado' =>$request->estado,
             'numero' =>$request->numero,
         ]);
-
+         
         return redirect('/login');
     }
     public function show(Usuario $cliente)
@@ -70,7 +70,6 @@ class UsuarioController extends Controller
         //
     }
 
-    use Illuminate\Support\Facades\Hash;
 
     public function update(Request $request, Usuario $cliente)
     {
