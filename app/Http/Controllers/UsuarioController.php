@@ -70,37 +70,44 @@ class UsuarioController extends Controller
         //
     }
 
-    use Illuminate\Support\Facades\Hash;
-
     public function update(Request $request, Usuario $cliente)
     {
-        $validated = $request->validate([
-            'nome' => ['required', 'string'],
-            'email' => ['required', 'email', 'unique:usuarios,email,' . $cliente->id],
-            'password' => ['required', 'string', 'min:6'],
-            'data_nascimento' => ['required', 'date'],
-            'CEP' => ['required'],
-            'rua' => ['required', 'string'],
-            'bairro' => ['required', 'string'],
-            'cidade' => ['required', 'string'],
-            'estado' => ['required', 'string'],
-            'numero' => ['required'],
-        ]);
+        $rules = [
+            'nome'            => 'required|string',
+            'email'           => 'required|email|unique:usuarios,email,' . $cliente->id,
+            'data_nascimento' => 'required|date',
+            'CEP'             => 'required',
+            'rua'             => 'required|string',
+            'bairro'          => 'required|string',
+            'cidade'          => 'required|string',
+            'estado'          => 'required|string',
+            'numero'          => 'required',
+            'password'        => 'nullable|min:6',
+        ];
 
-        $cliente->update([
-            'nome' => $validated['nome'],
-            'email' => $validated['email'],
-            'password' => Hash::make($validated['password']),
+        $validated = $request->validate($rules);
+
+        $dados = [
+            'nome'            => $validated['nome'],
+            'email'           => $validated['email'],
             'data_nascimento' => $validated['data_nascimento'],
-            'CEP' => $validated['CEP'],
-            'rua' => $validated['rua'],
-            'bairro' => $validated['bairro'],
-            'cidade' => $validated['cidade'],
-            'estado' => $validated['estado'],
-            'numero' => $validated['numero'],
-        ]);
+            'CEP'             => $validated['CEP'],
+            'rua'             => $validated['rua'],
+            'bairro'          => $validated['bairro'],
+            'cidade'          => $validated['cidade'],
+            'estado'          => $validated['estado'],
+            'numero'          => $validated['numero'],
+        ];
 
-        return redirect()->route('usuarios.index');
+        //Só adiciona a senha se o usuário digitou algo
+        if ($request->filled('password')) {
+            $dados['password'] = Hash::make($request->password);
+        }
+
+        //Salva tudo de uma vez
+        $cliente->update($dados);
+
+        return redirect()->route('usuarios.index')->with('success', 'Perfil atualizado!');
     }
 
     public function destroy(Usuario $cliente)

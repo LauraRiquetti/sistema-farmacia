@@ -16,6 +16,7 @@ class Usuario extends Model
         'user_id',
         'nome',
         'email',
+        'password',
         'data_nascimento',
         'CEP',
         'rua',

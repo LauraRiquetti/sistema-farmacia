@@ -123,41 +123,19 @@ body
 
         <h2>Entrar</h2>
 
-        <form>
-
+        <form action="{{ route('login') }}" method="POST">
+            @csrf
             <div class="input-group">
-
                 <span class="icon">📧</span>
-
-                <input 
-                    class="input-auth"
-                    type="email"
-                    placeholder="Email"
-                >
-
+                <input class="input-auth" type="email" name="email" placeholder="Email" required>
             </div>
-
 
             <div class="input-group">
-
                 <span class="icon">🔒</span>
-
-                <input 
-                    id="senha"
-                    class="input-auth"
-                    type="password"
-                    placeholder="Senha"
-                >
-
+                <input class="input-auth" type="password" name="password" placeholder="Senha" required>
             </div>
 
-
-            <button class="btn-auth">
-
-                Entrar
-
-            </button>
-
+            <button type="submit" class="btn-auth">Entrar</button>
         </form>
 
 
