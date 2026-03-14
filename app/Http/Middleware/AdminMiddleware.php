@@ -15,10 +15,10 @@ class AdminMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (!auth()->check() || auth()->user()->email !== 'adm@gmail.com') {
-            abort(403);
+        if (auth()->check() && auth()->user()->role === 'admin') {
+            return $next($request);
         }
 
-        return $next($request);
+        abort(403, 'Acesso negado. Você não é um administrador.');
     }
 }
