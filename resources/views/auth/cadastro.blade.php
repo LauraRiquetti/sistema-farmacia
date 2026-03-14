@@ -154,6 +154,19 @@
     </div>
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+@if(session('success'))
+    <script>
+        Swal.fire({
+            icon: 'success',
+            title: 'Sucesso!',
+            text: "{{ session('success') }}",
+            timer: 3000
+        });
+    </script>
+@endif
+
 <script>
 document.getElementById("cep").addEventListener("blur", function(){
     let cep = this.value.replace(/\D/g,'');
