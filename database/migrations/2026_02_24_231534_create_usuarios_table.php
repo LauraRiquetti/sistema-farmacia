@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('cidade');
             $table->string('estado');
             $table->integer('numero');
+            $table->string('role')->default('user')->after('numero');
             $table->string('role')->default('user');
             $table->rememberToken();
             $table->timestamps();
