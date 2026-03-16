@@ -171,7 +171,7 @@
 <header>
 
     <div class="logo">
-        Farmácia Online
+        FarmaOn 
     </div>
 
     <div class="menu">
