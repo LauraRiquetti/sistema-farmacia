@@ -4,261 +4,191 @@
 
 <style>
 
-.container
+body
 {
-    width: 90%;
-    margin: auto;
+    background:#f5f5f5;
+    font-family:Arial;
 }
 
+.container
+{
+    width:92%;
+    margin:auto;
+}
+
+/* TOPO */
+
+.topo
+{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:20px;
+}
+
+.busca
+{
+    padding:10px;
+    width:280px;
+    border-radius:6px;
+    border:1px solid #ccc;
+}
+
+.carrinho
+{
+    background:#111827;
+    color:white;
+    padding:8px 15px;
+    border-radius:6px;
+}
 
 /* CARROSSEL */
 
 .carousel
 {
-    width: 100%;
-    height: 260px;
-    overflow: hidden;
-    border-radius: 10px;
-    margin-bottom: 40px;
+    width:100%;
+    height:280px;
+    overflow:hidden;
+    border-radius:10px;
+    margin-bottom:30px;
 }
 
 .slide
 {
-    width: 100%;
-    height: 260px;
-    object-fit: cover;
-    display: none;
+    width:100%;
+    height:280px;
+    object-fit:cover;
+    display:none;
 }
 
 .slide.active
 {
-    display: block;
+    display:block;
 }
-
-
-/* TITULOS */
-
-.titulo
-{
-    margin-bottom: 20px;
-}
-
 
 /* CATEGORIAS */
 
 .categorias
 {
-    display: flex;
-    gap: 15px;
-    margin-bottom: 40px;
+    display:flex;
+    gap:10px;
+    flex-wrap:wrap;
+    margin-bottom:25px;
 }
 
 .categoria
 {
-    background: #eeeeee;
-    padding: 8px 18px;
-    border-radius: 20px;
-    cursor: pointer;
+    background:#eeeeee;
+    padding:8px 18px;
+    border-radius:20px;
+    cursor:pointer;
 }
 
+.categoria:hover
+{
+    background:#111827;
+    color:white;
+}
 
 /* PRODUTOS */
 
 .produtos
 {
-    display: grid;
-    grid-template-columns: repeat(4,1fr);
-    gap: 25px;
+    display:grid;
+    grid-template-columns:repeat(5,1fr);
+    gap:20px;
 }
 
 .produto
 {
-    background: white;
-    padding: 20px;
-    border-radius: 10px;
-    text-align: center;
-    box-shadow: 0px 3px 10px rgba(0,0,0,0.1);
+    background:white;
+    padding:15px;
+    border-radius:10px;
+    text-align:center;
+    box-shadow:0 3px 10px rgba(0,0,0,0.1);
+    transition:0.2s;
+}
+
+.produto:hover
+{
+    transform:translateY(-5px);
 }
 
 .produto img
 {
-    width: 150px;
-    height: 150px;
-    object-fit: contain;
+    width:140px;
+    height:140px;
+    object-fit:cover;
 }
 
 .preco
 {
-    color: red;
-    font-weight: bold;
+    color:red;
+    font-weight:bold;
 }
 
 .botao
 {
-    margin-top: 10px;
-    padding: 8px 16px;
-    border: none;
-    background: #111827;
-    color: white;
-    border-radius: 6px;
-    cursor: pointer;
+    margin-top:10px;
+    padding:8px 14px;
+    border:none;
+    background:#111827;
+    color:white;
+    border-radius:6px;
+    cursor:pointer;
 }
 
 </style>
 
 
+
 <div class="container">
+
+<div class="topo">
+
+<h2>Farmácia Online</h2>
+
+<input class="busca" placeholder="Buscar produto..." onkeyup="buscar(this.value)">
+
+<div class="carrinho">
+🛒 <span id="qtd">0</span>
+</div>
+
+</div>
+
 
 
 <!-- CARROSSEL -->
 
 <div class="carousel">
 
-    <img class="slide active" src="https://source.unsplash.com/1200x300/?pharmacy">
+<img class="slide active" src="https://picsum.photos/1200/300?random=1">
 
-    <img class="slide" src="https://source.unsplash.com/1200x300/?medicine">
+<img class="slide" src="https://picsum.photos/1200/300?random=2">
 
-    <img class="slide" src="https://source.unsplash.com/1200x300/?drugstore">
+<img class="slide" src="https://picsum.photos/1200/300?random=3">
 
 </div>
+
 
 
 <!-- CATEGORIAS -->
 
-<h2 class="titulo">Categorias</h2>
-
 <div class="categorias">
 
-    <div class="categoria" onclick="filtrar('todos')">Todos</div>
-
-    <div class="categoria" onclick="filtrar('farmacia')">Farmácia</div>
-
-    <div class="categoria" onclick="filtrar('beleza')">Beleza</div>
-
-    <div class="categoria" onclick="filtrar('vitaminas')">Vitaminas</div>
-
-    <div class="categoria" onclick="filtrar('infantil')">Infantil</div>
-
-    <div class="categoria" onclick="filtrar('pet')">Pet</div>
-
-    <div class="categoria" onclick="filtrar('higiene')">Higiene</div>
+<div class="categoria" onclick="filtrar('todos')">Todos</div>
+<div class="categoria" onclick="filtrar('farmacia')">Farmácia</div>
+<div class="categoria" onclick="filtrar('beleza')">Beleza</div>
+<div class="categoria" onclick="filtrar('vitaminas')">Vitaminas</div>
+<div class="categoria" onclick="filtrar('infantil')">Infantil</div>
+<div class="categoria" onclick="filtrar('pet')">Pet</div>
+<div class="categoria" onclick="filtrar('higiene')">Higiene</div>
 
 </div>
 
 
-<!-- PRODUTOS -->
 
-<h2 class="titulo">Produtos em destaque</h2>
-
-
-<div class="produtos">
-
-
-<div class="produto" data-categoria="farmacia">
-
-    <img src="https://source.unsplash.com/200x200/?pill">
-
-    <h4>Paracetamol 750mg</h4>
-
-    <p class="preco">R$ 12,90</p>
-
-    <button class="botao">Comprar</button>
-
-</div>
-
-
-<div class="produto" data-categoria="farmacia">
-
-    <img src="https://source.unsplash.com/200x200/?medicine">
-
-    <h4>Dorflex</h4>
-
-    <p class="preco">R$ 9,90</p>
-
-    <button class="botao">Comprar</button>
-
-</div>
-
-
-<div class="produto" data-categoria="farmacia">
-
-    <img src="https://source.unsplash.com/200x200/?capsule">
-
-    <h4>Ibuprofeno</h4>
-
-    <p class="preco">R$ 14,90</p>
-
-    <button class="botao">Comprar</button>
-
-</div>
-
-
-<div class="produto" data-categoria="vitaminas">
-
-    <img src="https://source.unsplash.com/200x200/?vitamins">
-
-    <h4>Vitamina C</h4>
-
-    <p class="preco">R$ 22,90</p>
-
-    <button class="botao">Comprar</button>
-
-</div>
-
-
-<div class="produto" data-categoria="beleza">
-
-    <img src="https://source.unsplash.com/200x200/?cosmetics">
-
-    <h4>Creme Facial</h4>
-
-    <p class="preco">R$ 35,90</p>
-
-    <button class="botao">Comprar</button>
-
-</div>
-
-
-<div class="produto" data-categoria="infantil">
-
-    <img src="https://source.unsplash.com/200x200/?baby">
-
-    <h4>Pomada Infantil</h4>
-
-    <p class="preco">R$ 18,90</p>
-
-    <button class="botao">Comprar</button>
-
-</div>
-
-
-<div class="produto" data-categoria="pet">
-
-    <img src="https://source.unsplash.com/200x200/?pet-medicine">
-
-    <h4>Vermífugo Pet</h4>
-
-    <p class="preco">R$ 29,90</p>
-
-    <button class="botao">Comprar</button>
-
-</div>
-
-
-<div class="produto" data-categoria="higiene">
-
-    <img src="https://source.unsplash.com/200x200/?soap">
-
-    <h4>Sabonete</h4>
-
-    <p class="preco">R$ 4,90</p>
-
-    <button class="botao">Comprar</button>
-
-</div>
-
-
-</div>
+<div class="produtos" id="listaProdutos"></div>
 
 </div>
 
@@ -266,34 +196,113 @@
 
 <script>
 
-/* FILTRO DE CATEGORIAS */
+/* LISTA DE NOMES */
 
-function filtrar(categoria)
+let nomes = [
+"Paracetamol","Dipirona","Ibuprofeno","Dorflex","Vitamina C","Vitamina D",
+"Álcool 70%","Sabonete Antibacteriano","Shampoo","Condicionador",
+"Creme Dental","Enxaguante Bucal","Protetor Solar","Hidratante Corporal",
+"Fralda Infantil","Lenço Umedecido","Pomada Infantil","Termômetro",
+"Vermífugo Pet","Shampoo Pet"
+]
+
+let categorias = [
+"farmacia","farmacia","farmacia","farmacia","vitaminas","vitaminas",
+"higiene","higiene","beleza","beleza",
+"higiene","higiene","beleza","beleza",
+"infantil","infantil","infantil","farmacia",
+"pet","pet"
+]
+
+let container = document.getElementById("listaProdutos")
+
+for(let i=1;i<=100;i++)
 {
-    let produtos = document.querySelectorAll(".produto")
 
-    produtos.forEach(function(produto)
-    {
-        if(categoria == "todos")
-        {
-            produto.style.display = "block"
-        }
-        else
-        {
-            if(produto.dataset.categoria == categoria)
-            {
-                produto.style.display = "block"
-            }
-            else
-            {
-                produto.style.display = "none"
-            }
-        }
-    })
+let nome = nomes[i % nomes.length]
+
+let categoria = categorias[i % categorias.length]
+
+let preco = (Math.random()*40+10).toFixed(2)
+
+container.innerHTML += `
+
+<div class="produto" data-categoria="${categoria}" data-nome="${nome.toLowerCase()}">
+
+<img src="https://picsum.photos/200?random=${i}">
+
+<h4>${nome}</h4>
+
+<p class="preco">R$ ${preco}</p>
+
+<button class="botao" onclick="addCarrinho()">Adicionar</button>
+
+</div>
+
+`
+
 }
 
 
-/* CARROSSEL AUTOMATICO */
+
+/* BUSCA */
+
+function buscar(txt)
+{
+
+txt = txt.toLowerCase()
+
+let produtos = document.querySelectorAll(".produto")
+
+produtos.forEach(p=>{
+
+if(p.dataset.nome.includes(txt))
+p.style.display="block"
+else
+p.style.display="none"
+
+})
+
+}
+
+
+
+/* FILTRO */
+
+function filtrar(cat)
+{
+
+let produtos = document.querySelectorAll(".produto")
+
+produtos.forEach(p=>{
+
+if(cat=="todos" || p.dataset.categoria==cat)
+p.style.display="block"
+else
+p.style.display="none"
+
+})
+
+}
+
+
+
+/* CARRINHO */
+
+let carrinho = 0
+
+function addCarrinho()
+{
+
+carrinho++
+
+document.getElementById("qtd").innerText = carrinho
+
+}
+
+
+
+/* CARROSSEL */
 
 let slides = document.querySelectorAll(".slide")
 
@@ -301,16 +310,14 @@ let index = 0
 
 setInterval(function(){
 
-    slides[index].classList.remove("active")
+slides[index].classList.remove("active")
 
-    index++
+index++
 
-    if(index >= slides.length)
-    {
-        index = 0
-    }
+if(index >= slides.length)
+index = 0
 
-    slides[index].classList.add("active")
+slides[index].classList.add("active")
 
 },3000)
 

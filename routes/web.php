@@ -33,20 +33,16 @@ Route::put('/vendas/{id}', [VendaController::class, 'update'])->name('vendas.upd
 Route::get('/', [HomeController::class, 'index'])->name('loja.home');
 Route::get('/home', [HomeController::class, 'index'])->name('loja.home');
 
-Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
-
-Route::post('/login', [AuthController::class, 'login']);
-Route::get('/login', function () {
-    return view('auth.login');
-});
-
+//Rotas login
 Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [AuthController::class, 'login']);
 
+//Rotas cadastro
 Route::get('/cadastro', function () {
     return view('auth.cadastro');
 })->name('cadastro');
 Route::post('/cadastro', [UsuarioController::class, 'store']);
+
 
 Route::get('/loja', function () {
     return view('loja.index');
@@ -54,13 +50,14 @@ Route::get('/loja', function () {
 
 Route::get('/cep/{cep}', [UsuarioController::class, 'buscarCep']);
 
-Route::get('/dashboard', [DashboardController::class, 'index'])
-    ->middleware(['auth','admin']);
-
 Route::middleware(['auth', 'admin'])->group(function () {
+    
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    
     Route::get('/admin', function () {
         return view('admin');
-    });
+    })->name('admin.index');
+
 });
 
 //Rotas de Carrinhos

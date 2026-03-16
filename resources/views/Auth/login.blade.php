@@ -122,42 +122,28 @@ body
     <div class="card-auth">
 
         <h2>Entrar</h2>
-
-        <form>
-
+        @if ($errors->any())
+            <div style="background: #ffcccc; color: #d40000; padding: 10px; margin-bottom: 10px;">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+        <form action="{{ route('login') }}" method="POST">
+            @csrf
             <div class="input-group">
-
                 <span class="icon">📧</span>
-
-                <input 
-                    class="input-auth"
-                    type="email"
-                    placeholder="Email"
-                >
-
+                <input class="input-auth" type="email" name="email" placeholder="Email" required>
             </div>
-
 
             <div class="input-group">
-
                 <span class="icon">🔒</span>
-
-                <input 
-                    id="senha"
-                    class="input-auth"
-                    type="password"
-                    placeholder="Senha"
-                >
-
+                <input class="input-auth" type="password" name="password" placeholder="Senha" required>
             </div>
 
-
-            <button class="btn-auth">
-
-                Entrar
-
-            </button>
-
+            <button type="submit" class="btn-auth">Entrar</button>
         </form>
 
 
@@ -173,5 +159,16 @@ body
     </div>
 
 </div>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
+@if(session('success'))
+    <script>
+        Swal.fire({
+            icon: 'success',
+            title: 'Sucesso!',
+            text: "{{ session('success') }}",
+            timer: 3000
+        });
+    </script>
+@endif
 @endsection

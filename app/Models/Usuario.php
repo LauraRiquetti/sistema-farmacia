@@ -2,13 +2,13 @@
 
 namespace App\Models;
 
+use Illuminate\Foundation\Auth\User as Authenticatable; 
+use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Casts\Attribute;
 
-class Usuario extends Model
+class Usuario extends Authenticatable // <--- MUDE DE Model PARA Authenticatable
 {
-    use HasFactory;
+    use HasFactory, Notifiable;
 
     protected $table = 'usuarios';
 
@@ -16,14 +16,22 @@ class Usuario extends Model
         'user_id',
         'nome',
         'email',
+        'password',
         'data_nascimento',
         'CEP',
         'rua',
         'bairro',
         'cidade',
         'estado',
-        'numero'
+        'numero',
+        'role' 
     ];
+
+    protected $hidden = [
+        'password',
+        'remember_token',
+    ];
+
     public function user()
     {
         return $this->belongsTo(User::class);
