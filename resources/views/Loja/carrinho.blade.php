@@ -38,28 +38,16 @@ Total
 
 <tbody>
 
-@foreach($carrinho as $item)
-
+@foreach($carrinho as $id => $item)
 <tr>
-
-<td>
-{{ $item->nome }}
-</td>
-
-<td>
-R$ {{ $item->preco }}
-</td>
-
-<td>
-{{ $item->quantidade }}
-</td>
-
-<td>
-R$ {{ $item->preco * $item->quantidade }}
-</td>
-
+    <td>{{ $item['nome'] }}</td>
+    
+    <td>R$ {{ number_format($item['valor'], 2, ',', '.') }}</td>
+    
+    <td>{{ $item['quantidade'] }}</td>
+    
+    <td>R$ {{ number_format($item['valor'] * $item['quantidade'], 2, ',', '.') }}</td>
 </tr>
-
 @endforeach
 
 </tbody>
