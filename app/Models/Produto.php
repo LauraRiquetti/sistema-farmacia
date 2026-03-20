@@ -15,6 +15,8 @@ class Produto extends Model
         'nome',
         'quantidade',
         'valor',
+        'categoria', // Adicionado
+        'imagem',    // Adicionado
     ];
 
     protected function venda()
