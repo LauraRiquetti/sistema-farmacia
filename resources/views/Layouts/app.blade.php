@@ -39,9 +39,20 @@
         <li class="nav-item">
           <a class="nav-link {{ request()->routeIs('loja.home') ? 'active fw-bold' : '' }}" href="{{ route('loja.home') }}">Início</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link {{ request()->routeIs('produtos.*') ? 'active fw-bold' : '' }}" href="{{ route('produtos.index') }}">Produtos</a>
+        
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle fw-bold" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Departamentos
+          </a>
+          <ul class="dropdown-menu shadow-sm" aria-labelledby="navbarDropdown">
+            <li><a class="dropdown-item" href="{{ route('categoria.show', 'farmacia') }}">💊 Farmácia</a></li>
+            <li><a class="dropdown-item" href="{{ route('categoria.show', 'vitaminas') }}">🌿 Vitaminas</a></li>
+            <li><a class="dropdown-item" href="{{ route('categoria.show', 'beleza') }}">✨ Beleza</a></li>
+            <li><a class="dropdown-item" href="{{ route('categoria.show', 'infantil') }}">👶 Infantil</a></li>
+            <li><a class="dropdown-item" href="{{ route('categoria.show', 'pet') }}">🐾 Pet</a></li>
+          </ul>
         </li>
+
         <li class="nav-item">
           <a class="nav-link {{ request()->routeIs('carrinho') ? 'active fw-bold' : '' }}" href="{{ route('carrinho') }}">Carrinho 🛒</a>
         </li>

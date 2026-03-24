@@ -20,8 +20,8 @@ Route::get('/', [HomeController::class, 'index'])->name('loja.home');
 Route::get('/home', [HomeController::class, 'index']);
 Route::get('/loja', function () { return view('loja.index'); });
 
-// Catálogo de Produtos
-Route::get('/produtos', [ProdutoController::class, 'index'])->name('produtos.index');
+// Rota dinâmica para os Departamentos/Categorias
+Route::get('/departamento/{categoria}', [ProdutoController::class, 'porCategoria'])->name('categoria.show');
 
 // Carrinho de Compras
 Route::get('/carrinho', [CarrinhoController::class, 'index'])->name('carrinho');
@@ -50,8 +50,11 @@ Route::middleware('auth')->group(function () {
         return "Página de Finalização de Compra! Se você está lendo isso, é porque conseguiu fazer o Login com sucesso e o fluxo funcionou.";
     })->name('checkout');
 
-    // 👉 AQUI ESTÁ A CORREÇÃO: Qualquer cliente logado pode salvar uma venda agora!
+    // Salvar a venda
     Route::post('/vendas', [VendaController::class, 'store'])->name('vendas.store');
+
+    // NOVA ROTA: Histórico de compras (Meus Pedidos)
+    Route::get('/meus-pedidos', [VendaController::class, 'meusPedidos'])->name('meus.pedidos');
 });
 
 
@@ -81,6 +84,9 @@ Route::middleware(['auth', 'admin'])->group(function () {
     // CRUD de Vendas
     Route::get('/vendas', [VendaController::class, 'index'])->name('vendas.index');
     Route::get('/vendas/create', [VendaController::class, 'create'])->name('vendas.create');
+
+    // Gerar Relatório
+    Route::get('/relatorio-vendas', [DashboardController::class, 'relatorio'])->name('admin.relatorio');
     
     // (A rota de POST para /vendas foi movida daqui para o grupo de cima)
     

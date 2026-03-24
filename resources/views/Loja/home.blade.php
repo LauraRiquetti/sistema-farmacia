@@ -2,46 +2,48 @@
 
 @section('content')
     <div class="container">
-        <h2 class="my-4" style="color: #1e3a8a; font-weight: bold; text-align: center;">FarmaOn</h2>
+        <h2 class="my-4" style="color: #1e3a8a; font-weight: bold; text-align: center;">
+            {{ $categoria === 'todos' ? 'FarmaOn' : 'Departamento: ' . ucfirst($categoria) }}
+        </h2>
 
-        <div class="banner mb-4">
-            <img id="bannerImg" src="https://images.unsplash.com/photo-1512069772995-ec65ed45afd6?auto=format&fit=crop&w=1200&q=80" width="100%" height="280" style="object-fit:cover; border-radius:15px; transition: opacity 0.5s; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
-        </div>
+        @if($categoria === 'todos')
+            <div class="banner mb-4">
+                <img id="bannerImg" src="https://images.unsplash.com/photo-1512069772995-ec65ed45afd6?auto=format&fit=crop&w=1200&q=80" width="100%" height="280" style="object-fit:cover; border-radius:15px; transition: opacity 0.5s; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
+            </div>
+        @endif
 
         <div class="categorias mb-4 text-center">
-            <button class="btn btn-primary active" onclick="filtrar('todos', this)">Todos</button>
-            <button class="btn btn-outline-primary" onclick="filtrar('farmacia', this)">Farmácia</button>
-            <button class="btn btn-outline-primary" onclick="filtrar('vitaminas', this)">Vitaminas</button>
-            <button class="btn btn-outline-primary" onclick="filtrar('beleza', this)">Beleza</button>
-            <button class="btn btn-outline-primary" onclick="filtrar('infantil', this)">Infantil</button>
-            <button class="btn btn-outline-primary" onclick="filtrar('pet', this)">Pet</button>
+            <a href="{{ route('categoria.show', 'farmacia') }}" class="btn {{ isset($categoria) && $categoria === 'farmacia' ? 'btn-primary active' : 'btn-outline-primary' }}">Farmácia</a>
+            <a href="{{ route('categoria.show', 'vitaminas') }}" class="btn {{ isset($categoria) && $categoria === 'vitaminas' ? 'btn-primary active' : 'btn-outline-primary' }}">Vitaminas</a>
+            <a href="{{ route('categoria.show', 'beleza') }}" class="btn {{ isset($categoria) && $categoria === 'beleza' ? 'btn-primary active' : 'btn-outline-primary' }}">Beleza</a>
+            <a href="{{ route('categoria.show', 'infantil') }}" class="btn {{ isset($categoria) && $categoria === 'infantil' ? 'btn-primary active' : 'btn-outline-primary' }}">Infantil</a>
+            <a href="{{ route('categoria.show', 'pet') }}" class="btn {{ isset($categoria) && $categoria === 'pet' ? 'btn-primary active' : 'btn-outline-primary' }}">Pet</a>
         </div>
 
         <div class="produtos">
-            {{-- Puxando os produtos DIRETAMENTE DO BANCO DE DADOS! --}}
-            @php
-                $produtosBanco = \App\Models\Produto::all();
-            @endphp
-
-            @foreach ($produtosBanco as $produto)
-                <div class="produto shadow-sm" data-cat="{{ $produto->categoria }}">
-                    <div class="img-container">
-                        <img src="{{ $produto->imagem ?? 'https://placehold.co/400x400/1e3a8a/white?text=' . urlencode($produto->nome) }}" 
-                             alt="{{ $produto->nome }}" 
-                             loading="lazy">
+            {{-- Verifica se a categoria tem produtos --}}
+            @if($produtos->isEmpty())
+                <div class="alert alert-info w-100 text-center">Nenhum produto encontrado neste departamento.</div>
+            @else
+                @foreach ($produtos as $produto)
+                    <div class="produto shadow-sm">
+                        <div class="img-container">
+                            <img src="{{ $produto->imagem ?? 'https://placehold.co/400x400/1e3a8a/white?text=' . urlencode($produto->nome) }}" 
+                                 alt="{{ $produto->nome }}" 
+                                 loading="lazy">
+                        </div>
+                        <div class="info">
+                            <h4>{{ $produto->nome }}</h4>
+                            <span class="badge-cat">{{ ucfirst($produto->categoria) }}</span>
+                            <p class="preco">R$ {{ number_format($produto->valor, 2, ',', '.') }}</p>
+                            
+                            <button type="button" class="botao" onclick="adicionarAoCache({{ $produto->id }}, '{{ addslashes($produto->nome) }}', {{ $produto->valor }})">
+                                Adicionar ao Carrinho
+                            </button>
+                        </div>
                     </div>
-                    <div class="info">
-                        <h4>{{ $produto->nome }}</h4>
-                        <span class="badge-cat">{{ ucfirst($produto->categoria) }}</span>
-                        <p class="preco">R$ {{ number_format($produto->valor, 2, ',', '.') }}</p>
-                        
-                        {{-- O botão agora chama a função JS e não recarrega a página --}}
-                        <button type="button" class="botao" onclick="adicionarAoCache({{ $produto->id }}, '{{ addslashes($produto->nome) }}', {{ $produto->valor }})">
-                            Adicionar ao Carrinho
-                        </button>
-                    </div>
-                </div>
-            @endforeach
+                @endforeach
+            @endif
         </div>
 
         <style>
@@ -60,27 +62,20 @@
         </style>
 
         <script>
-            // Troca de banner
-            const banners = [
-                "https://images.unsplash.com/photo-1512069772995-ec65ed45afd6?auto=format&fit=crop&w=1200&q=80",
-                "https://images.unsplash.com/photo-1587854692152-cbe660dbde88?auto=format&fit=crop&w=1200&q=80",
-                "https://images.unsplash.com/photo-1585435557343-3b092031a831?auto=format&fit=crop&w=1200&q=80"
-            ];
-            let i = 0;
-            setInterval(() => {
-                i = (i + 1) % banners.length;
-                const b = document.getElementById("bannerImg");
-                b.style.opacity = 0;
-                setTimeout(() => { b.src = banners[i]; b.style.opacity = 1; }, 500);
-            }, 5000);
-
-            // Filtro
-            function filtrar(cat, btn) {
-                document.querySelectorAll('.categorias button').forEach(b => b.className = 'btn btn-outline-primary');
-                btn.className = 'btn btn-primary active';
-                document.querySelectorAll(".produto").forEach(p => {
-                    p.style.display = (cat === "todos" || p.dataset.cat === cat) ? "flex" : "none";
-                });
+            // Troca de banner (só vai rodar se o banner existir na tela)
+            const bannerElement = document.getElementById("bannerImg");
+            if(bannerElement) {
+                const banners = [
+                    "https://images.unsplash.com/photo-1512069772995-ec65ed45afd6?auto=format&fit=crop&w=1200&q=80",
+                    "https://images.unsplash.com/photo-1587854692152-cbe660dbde88?auto=format&fit=crop&w=1200&q=80",
+                    "https://images.unsplash.com/photo-1585435557343-3b092031a831?auto=format&fit=crop&w=1200&q=80"
+                ];
+                let i = 0;
+                setInterval(() => {
+                    i = (i + 1) % banners.length;
+                    bannerElement.style.opacity = 0;
+                    setTimeout(() => { bannerElement.src = banners[i]; bannerElement.style.opacity = 1; }, 500);
+                }, 5000);
             }
 
             // FUNÇÃO MÁGICA DO CARRINHO (LocalStorage)
@@ -106,4 +101,13 @@
             }
         </script>
     </div>
+
+    @if(session('compra_sucesso'))
+            <script>
+                // Limpa o carrinho do navegador
+                localStorage.removeItem('farmaon_carrinho');
+                // Avisa o cliente
+                alert("{{ session('compra_sucesso') }}");
+            </script>
+        @endif
 @endsection

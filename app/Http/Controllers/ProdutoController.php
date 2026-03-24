@@ -7,28 +7,19 @@ use Illuminate\Http\Request;
 
 class ProdutoController extends Controller
 {
-   
     public function index()
     {
         $produtos = Produto::orderByDesc('id')->get();
-
         return view('produtos.index', compact('produtos'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
         return view('produtos.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        
         $produto = new Produto();
         $request->validate([
             'nome' => 'required|string',
@@ -45,25 +36,16 @@ class ProdutoController extends Controller
             ->with('sucess', 'Produto cadastrado com sucesso!');
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show(Produto $produto)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(Produto $produto)
     {
         
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, Produto $produto)
     {
         $validated = $request->validate([
@@ -80,13 +62,19 @@ class ProdutoController extends Controller
         return redirect()->route('produtos.index');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(Produto $produto)
     {
         $produto->delete();
         return redirect()->route('produtos.index');
     }
     
+    // NOVA FUNÇÃO: Exibe produtos por Departamento/Categoria
+    public function porCategoria($categoria)
+    {
+        // Busca os produtos onde a coluna 'categoria' bate com a URL
+        $produtos = Produto::where('categoria', $categoria)->get();
+        
+        // Vamos usar a mesma view (loja.home), mas agora passando apenas os produtos filtrados e o nome da categoria atual
+        return view('loja.home', compact('produtos', 'categoria'));
+    }
 }
