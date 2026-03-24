@@ -4,167 +4,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Farmácia Online</title>
+    <title>FarmaON - @yield('title', 'Farmácia Online')</title>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 
     <style>
-        body{
-            margin:0;
-            font-family:Arial, Helvetica, sans-serif;
-            background:#f5f5f5;
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f5f5f5;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh; /* Garante que o footer fique no final */
         }
-
-        header{
-            background:#0b2a4a;
-            color:white;
-            padding:15px;
-            display:flex;
-            justify-content:space-between;
-            align-items:center;
-        }
-
-        .logo{
-            font-size:22px;
-            font-weight:bold;
-        }
-
-        .menu a{
-            color:white;
-            margin-left:15px;
-            text-decoration:none;
-            font-size:14px;
-        }
-
-        .busca{
-            padding:15px;
-        }
-
-        .busca input{
-            width:100%;
-            padding:10px;
-            border-radius:20px;
-            border:1px solid #ccc;
-        }
-
-        .container{
-            padding:15px;
-        }
-
-        .carrossel img{
-            width:100%;
-            border-radius:10px;
-        }
-
-        .titulo{
-            font-size:20px;
-            color:#0b2a4a;
-            margin-top:20px;
-        }
-
-        .produtos{
-            display:grid;
-            grid-template-columns:repeat(4,1fr);
-            gap:15px;
-            margin-top:10px;
-        }
-
-        .produto{
-            background:white;
-            border-radius:10px;
-            padding:10px;
-            position:relative;
-            text-align:center;
-        }
-
-        .produto img{
-            width:100%;
-            height:120px;
-            object-fit:contain;
-        }
-
-        .desconto{
-            position:absolute;
-            top:5px;
-            left:5px;
-            background:#e30613;
-            color:white;
-            font-size:12px;
-            padding:4px 6px;
-            border-radius:5px;
-        }
-
-        .preco-antigo{
-            text-decoration:line-through;
-            font-size:12px;
-            color:#999;
-        }
-
-        .preco{
-            color:#0b2a4a;
-            font-weight:bold;
-            font-size:18px;
-        }
-
-        .botao{
-            background:#e30613;
-            color:white;
-            border:none;
-            padding:8px;
-            width:100%;
-            border-radius:5px;
-            margin-top:8px;
-            cursor:pointer;
-        }
-
-        footer{
-            position:fixed;
-            bottom:0;
-            width:100%;
-            background:white;
-            border-top:1px solid #ddd;
-            display:flex;
-            justify-content:space-around;
-            padding:10px;
-        }
-
-        footer div{
-            text-align:center;
-            font-size:12px;
-        }
-
-        .form-box{
-            max-width:400px;
-            margin:auto;
-            background:white;
-            padding:25px;
-            border-radius:10px;
-        }
-
-        input{
-            width:100%;
-            padding:10px;
-            margin-top:10px;
-            border-radius:6px;
-            border:1px solid #ccc;
-        }
-
-        table{
-            width:100%;
-            background:white;
-            border-radius:10px;
-        }
-
-        th,td{
-            padding:12px;
-            border-bottom:1px solid #eee;
+        main {
+            flex: 1; /* Faz o conteúdo principal empurrar o footer para baixo */
         }
     </style>
+    @stack('styles')
 </head>
 
 <body>
 
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark py-4 shadow-sm">
+<nav class="navbar navbar-expand-lg navbar-dark py-3 shadow-sm" style="background-color: #0b2a4a;">
   <div class="container-fluid">
 
     <a class="navbar-brand fw-bold" href="{{ route('loja.home') }}">💊 FarmaON</a>
@@ -174,33 +35,49 @@
     </button>
 
     <div class="collapse navbar-collapse" id="navbarNav">
-
       <ul class="navbar-nav gap-3 me-auto ms-4">
         <li class="nav-item">
-          <a class="nav-link active" href="{{ route('loja.home') }}">Início</a>
+          <a class="nav-link {{ request()->routeIs('loja.home') ? 'active fw-bold' : '' }}" href="{{ route('loja.home') }}">Início</a>
         </li>
-
         <li class="nav-item">
-          <a class="nav-link" href="{{ route('produtos.index') }}">Produtos</a>
+          <a class="nav-link {{ request()->routeIs('produtos.*') ? 'active fw-bold' : '' }}" href="{{ route('produtos.index') }}">Produtos</a>
         </li>
-
         <li class="nav-item">
-          <a class="nav-link" href="{{ route('carrinho') }}">Carrinho</a>
+          <a class="nav-link {{ request()->routeIs('carrinho') ? 'active fw-bold' : '' }}" href="{{ route('carrinho') }}">Carrinho 🛒</a>
         </li>
       </ul>
 
-      <div class="d-flex align-items-center">
-        <a class="btn btn-success fw-bold px-4" href="{{ route('login') }}">Login</a>
-      </div>
+      <div class="d-flex align-items-center gap-2">
+        @auth
+            <span class="text-white me-3">Olá, {{ Auth::user()->name ?? 'Cliente' }}!</span>
+            
+            @if(Auth::user()->is_admin) <a class="btn btn-outline-light btn-sm fw-bold" href="{{ route('admin.index') }}">Painel</a>
+            @endif
 
+            <form action="{{ route('logout') }}" method="POST" class="m-0">
+                @csrf
+                <button type="submit" class="btn btn-danger btn-sm fw-bold">Sair</button>
+            </form>
+        @else
+            <a class="btn btn-success fw-bold px-4" href="{{ route('login') }}">Login</a>
+            <a class="btn btn-outline-light fw-bold px-3" href="{{ route('cadastro') }}">Cadastrar</a>
+        @endauth
+      </div>
     </div>
   </div>
 </nav>
 
-<main class="py-4">
+<main class="py-4 container">
     @yield('content')
 </main>
 
+<footer class="bg-dark text-white text-center py-3 mt-auto">
+    <div class="container">
+        <small>&copy; {{ date('Y') }} FarmaON. Todos os direitos reservados.</small>
+    </div>
+</footer>
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+@stack('scripts')
 </body>
 </html>

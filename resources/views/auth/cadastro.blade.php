@@ -2,16 +2,6 @@
 
 @section('content')
 
-@if ($errors->any())
-    <div style="color: red;">
-        <ul>
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    </div>
-@endif
-
 <style>
     body {
         background: #f4f4f4;
@@ -40,6 +30,7 @@
     .input-group {
         position: relative;
         margin-bottom: 15px;
+        width: 100%;
     }
 
     .input-row {
@@ -54,6 +45,7 @@
         border: 1px solid #ccc;
         box-sizing: border-box;
         font-size: 14px;
+        transition: 0.3s;
     }
 
     .no-icon { padding-left: 15px; }
@@ -79,6 +71,21 @@
     }
 
     .btn-auth:hover { background: #a80000; }
+
+    /* Classes novas para os erros */
+    .input-error {
+        border-color: #d40000 !important;
+        background-color: #fff0f0;
+    }
+
+    .error-text {
+        color: #d40000;
+        font-size: 12px;
+        margin-top: 4px;
+        display: block;
+        padding-left: 5px;
+        font-weight: bold;
+    }
 </style>
 
 <div class="container-auth">
@@ -90,63 +97,70 @@
 
             <div class="input-group">
                 <span class="icon">👤</span>
-                <input class="input-auth" type="text" name="nome" placeholder="Nome completo" required>
+                <input class="input-auth @error('nome') input-error @enderror" type="text" name="nome" value="{{ old('nome') }}" placeholder="Nome completo" required>
+                @error('nome') <span class="error-text">{{ $message }}</span> @enderror
             </div>
 
             <div class="input-group">
                 <span class="icon">📧</span>
-                <input class="input-auth" type="email" name="email" placeholder="Email" required>
+                <input class="input-auth @error('email') input-error @enderror" type="email" name="email" value="{{ old('email') }}" placeholder="Email" required pattern=".*@.*\.com" title="O e-mail deve conter @ e terminar com .com">
+                @error('email') <span class="error-text">{{ $message }}</span> @enderror
             </div>
 
             <div class="input-group">
                 <span class="icon">📅</span>
-                <input class="input-auth" type="date" name="data_nascimento" title="Data de Nascimento" required>
+                <input class="input-auth @error('data_nascimento') input-error @enderror" type="date" name="data_nascimento" value="{{ old('data_nascimento') }}" title="Data de Nascimento" required>
+                @error('data_nascimento') <span class="error-text">{{ $message }}</span> @enderror
             </div>
 
             <div class="input-row">
                 <div class="input-group" style="flex: 2;">
                     <span class="icon">🪪</span>
-                    <input class="input-auth" type="text" name="cpf" placeholder="CPF">
+                    <input class="input-auth @error('cpf') input-error @enderror" type="text" name="cpf" value="{{ old('cpf') }}" placeholder="CPF">
+                    @error('cpf') <span class="error-text">{{ $message }}</span> @enderror
                 </div>
                 <div class="input-group" style="flex: 2;">
                     <span class="icon">📱</span>
-                    <input class="input-auth" type="text" name="telefone" placeholder="Telefone">
+                    <input class="input-auth @error('telefone') input-error @enderror" type="text" name="telefone" value="{{ old('telefone') }}" placeholder="Telefone">
+                    @error('telefone') <span class="error-text">{{ $message }}</span> @enderror
                 </div>
             </div>
 
             <div class="input-group">
                 <span class="icon">📍</span>
-                <input class="input-auth" id="cep" type="text" name="CEP" placeholder="CEP">
+                <input class="input-auth @error('CEP') input-error @enderror" id="cep" type="text" name="CEP" value="{{ old('CEP') }}" placeholder="CEP">
+                @error('CEP') <span class="error-text">{{ $message }}</span> @enderror
             </div>
 
             <div class="input-row">
                 <div class="input-group" style="flex: 3;">
                     <span class="icon">🏠</span>
-                    <input class="input-auth" id="rua" type="text" name="rua" placeholder="Rua">
+                    <input class="input-auth @error('rua') input-error @enderror" id="rua" type="text" name="rua" value="{{ old('rua') }}" placeholder="Rua">
                 </div>
                 <div class="input-group" style="flex: 1;">
-                    <input class="input-auth no-icon" type="text" name="numero" placeholder="Nº">
+                    <input class="input-auth no-icon @error('numero') input-error @enderror" type="text" name="numero" value="{{ old('numero') }}" placeholder="Nº">
                 </div>
             </div>
 
             <div class="input-group">
                 <span class="icon">📍</span>
-                <input class="input-auth" id="bairro" type="text" name="bairro" placeholder="Bairro">
+                <input class="input-auth @error('bairro') input-error @enderror" id="bairro" type="text" name="bairro" value="{{ old('bairro') }}" placeholder="Bairro">
             </div>
 
             <div class="input-row">
                 <div class="input-group" style="flex: 3;">
                     <span class="icon">🌆</span>
-                    <input class="input-auth" id="cidade" type="text" name="cidade" placeholder="Cidade">
+                    <input class="input-auth @error('cidade') input-error @enderror" id="cidade" type="text" name="cidade" value="{{ old('cidade') }}" placeholder="Cidade">
                 </div>
                 <div class="input-group" style="flex: 1.5;">
-                    <input class="input-auth no-icon" id="uf" type="text" name="estado" placeholder="UF" maxlength="2">
+                    <input class="input-auth no-icon @error('estado') input-error @enderror" id="uf" type="text" name="estado" value="{{ old('estado') }}" placeholder="UF" maxlength="2">
                 </div>
             </div>
 
             <div class="input-group">
                 <span class="icon">🔒</span>
-                <input class="input-auth" type="password" name="password" placeholder="Senha" required>
+                <input class="input-auth @error('password') input-error @enderror" type="password" name="password" placeholder="Senha" required>
+                @error('password') <span class="error-text">{{ $message }}</span> @enderror
             </div>
 
             <button type="submit" class="btn-auth">Cadastrar</button>

@@ -35,10 +35,10 @@
                         <span class="badge-cat">{{ ucfirst($produto->categoria) }}</span>
                         <p class="preco">R$ {{ number_format($produto->valor, 2, ',', '.') }}</p>
                         
-                        {{-- O botão agora envia o ID REAL do banco de dados --}}
-                        <a href="{{ route('carrinho.adicionar', ['id' => $produto->id]) }}" style="text-decoration:none;">
-                            <button class="botao">Adicionar</button>
-                        </a>
+                        {{-- O botão agora chama a função JS e não recarrega a página --}}
+                        <button type="button" class="botao" onclick="adicionarAoCache({{ $produto->id }}, '{{ addslashes($produto->nome) }}', {{ $produto->valor }})">
+                            Adicionar ao Carrinho
+                        </button>
                     </div>
                 </div>
             @endforeach
@@ -82,14 +82,28 @@
                     p.style.display = (cat === "todos" || p.dataset.cat === cat) ? "flex" : "none";
                 });
             }
+
+            // FUNÇÃO MÁGICA DO CARRINHO (LocalStorage)
+            function adicionarAoCache(id, nome, valor) {
+                let carrinho = JSON.parse(localStorage.getItem('farmaon_carrinho')) || [];
+                let produtoExistente = carrinho.find(item => item.id === id);
+
+                if (produtoExistente) {
+                    produtoExistente.quantidade += 1;
+                } else {
+                    carrinho.push({
+                        id: id,
+                        nome: nome,
+                        valor: parseFloat(valor), 
+                        quantidade: 1
+                    });
+                }
+
+                localStorage.setItem('farmaon_carrinho', JSON.stringify(carrinho));
+                
+                // Exibe o alerta sem recarregar a página
+                alert(nome + " foi adicionado ao carrinho!");
+            }
         </script>
-
-        @if(session('sucesso'))
-            <script>
-                // Dispara o alerta nativo do navegador
-                alert("{{ session('sucesso') }}");
-            </script>
-        @endif
-
     </div>
 @endsection

@@ -13,7 +13,7 @@ class AuthController extends Controller
         return view('auth.login'); // ou o nome da sua view de login
     }
 
-    // Método para PROCESSAR o login (POST) - O QUE ESTÁ FALTANDO
+    // Método para PROCESSAR o login (POST)
     public function login(Request $request)
     {
         $credentials = $request->validate([
@@ -36,5 +36,21 @@ class AuthController extends Controller
         return back()->withErrors([
             'email' => 'Usuário ou senha inválidos'
         ]);
+    }
+
+    // NOVO: Método para fazer o LOGOUT
+    public function logout(Request $request)
+    {
+        // 1. Desloga o usuário
+        Auth::logout();
+
+        // 2. Invalida a sessão atual por segurança
+        $request->session()->invalidate();
+
+        // 3. Gera um novo token de segurança (CSRF)
+        $request->session()->regenerateToken();
+
+        // 4. Redireciona para a página inicial (Home) com uma mensagem
+        return redirect('/')->with('success', 'Você saiu com sucesso!');
     }
 }
