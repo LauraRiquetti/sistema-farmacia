@@ -4,7 +4,7 @@
 <div class="container" style="margin-top: 30px; margin-bottom: 50px;">
     
     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px;">
-        <h2 style="color: #1e3a8a; font-weight: bold; margin: 0;">📊 Painel Administrativo</h2>
+        <h2 style="color: #ff0000; ...">📊 Painel Administrativo</h2>
         
         <a href="{{ route('admin.relatorio') }}" target="_blank" 
            style="background-color: #10b981; color: white; padding: 10px 20px; text-decoration: none; border-radius: 6px; font-weight: bold; box-shadow: 0 4px 6px rgba(16, 185, 129, 0.3); transition: 0.3s;"

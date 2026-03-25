@@ -10,7 +10,7 @@ class AuthController extends Controller
     // Método para mostrar o formulário (GET)
     public function showLoginForm()
     {
-        return view('auth.login'); // ou o nome da sua view de login
+        return view('auth.login');
     }
 
     // Método para PROCESSAR o login (POST)
@@ -24,12 +24,14 @@ class AuthController extends Controller
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
 
-            // Se o usuário logado for admin, vai para /dashboard
-            if (Auth::user()->role === 'admin') {
-                return redirect()->intended('/dashboard');
+            $user = Auth::user();
+
+            // Verificação dupla de admin (Garante que vai ler o banco corretamente)
+            if ($user->role === 'admin' || $user->admin === 'admin') {
+                return redirect()->intended('/admin'); // <-- Corrigido para /admin
             }
 
-            // Se for comum, vai para /home
+            // Se for cliente comum, vai para a loja
             return redirect()->intended('/home');
         }
 
@@ -38,19 +40,13 @@ class AuthController extends Controller
         ]);
     }
 
-    // NOVO: Método para fazer o LOGOUT
+    // Método para fazer o LOGOUT
     public function logout(Request $request)
     {
-        // 1. Desloga o usuário
         Auth::logout();
-
-        // 2. Invalida a sessão atual por segurança
         $request->session()->invalidate();
-
-        // 3. Gera um novo token de segurança (CSRF)
         $request->session()->regenerateToken();
 
-        // 4. Redireciona para a página inicial (Home) com uma mensagem
         return redirect('/')->with('success', 'Você saiu com sucesso!');
     }
-}   
+}

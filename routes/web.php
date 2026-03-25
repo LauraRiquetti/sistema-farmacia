@@ -8,7 +8,15 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CarrinhoController;
-use App\Http\Controllers\PasswordResetController; // <- Coloquei ele aqui no topo com os outros!
+use App\Http\Controllers\PasswordResetController;
+
+/*
+|--------------------------------------------------------------------------
+| A ROTA MÁGICA (Para consertar o Admin e o Login infinito)
+|--------------------------------------------------------------------------
+*/
+
+
 
 /*
 |--------------------------------------------------------------------------
@@ -70,11 +78,12 @@ Route::middleware('auth')->group(function () {
 | ROTAS ADMINISTRATIVAS (Protegidas por Login e Nível Admin)
 |--------------------------------------------------------------------------
 */
-Route::middleware(['auth', 'admin'])->group(function () {
+Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
     
-    // Dashboard principal do Admin
+    // Dashboard principal do Admin (Agora centralizado no Controller)
+    // Acesse por: seu-site.test/admin OU seu-site.test/admin/dashboard
+    Route::get('/', [DashboardController::class, 'index'])->name('admin.index');
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
-    Route::get('/admin', function () { return view('admin'); })->name('admin.index');
 
     // CRUD de Produtos
     Route::get('/produtos/create', [ProdutoController::class, 'create'])->name('produtos.create');
@@ -91,12 +100,10 @@ Route::middleware(['auth', 'admin'])->group(function () {
     // CRUD de Vendas
     Route::get('/vendas', [VendaController::class, 'index'])->name('vendas.index');
     Route::get('/vendas/create', [VendaController::class, 'create'])->name('vendas.create');
-
-    // Gerar Relatório
-    Route::get('/relatorio-vendas', [DashboardController::class, 'relatorio'])->name('admin.relatorio');
-    
     Route::get('/vendas/{id}', [VendaController::class, 'show'])->name('vendas.show');
     Route::get('/vendas/{id}/edit', [VendaController::class, 'edit'])->name('vendas.edit');
     Route::put('/vendas/{id}', [VendaController::class, 'update'])->name('vendas.update');
 
+    // Gerar Relatório (A rota que o seu botão usa)
+    Route::get('/relatorio-vendas', [DashboardController::class, 'relatorio'])->name('admin.relatorio');
 });

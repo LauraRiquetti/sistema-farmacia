@@ -60,9 +60,11 @@
 
       <div class="d-flex align-items-center gap-2">
         @auth
-            <span class="text-white me-3">Olá, {{ Auth::user()->name ?? 'Cliente' }}!</span>
-            
-            @if(Auth::user()->is_admin) <a class="btn btn-outline-light btn-sm fw-bold" href="{{ route('admin.index') }}">Painel</a>
+            @if(Auth::user()->role === 'admin' || Auth::user()->admin === 'admin')
+                <span class="text-white me-3">Olá, Admin!</span>
+                <a class="btn btn-outline-light btn-sm fw-bold me-2" href="{{ route('admin.index') }}">Painel</a>
+            @else
+                <span class="text-white me-3">Olá, {{ Auth::user()->name }}!</span>
             @endif
 
             <form action="{{ route('logout') }}" method="POST" class="m-0">
