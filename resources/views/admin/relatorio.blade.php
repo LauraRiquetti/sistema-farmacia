@@ -11,7 +11,9 @@
         table { width: 100%; border-collapse: collapse; margin-top: 20px; }
         th, td { border: 1px solid #ddd; padding: 10px; text-align: left; font-size: 14px; }
         th { background-color: #f8f9fa; font-weight: bold; }
-        .total { text-align: right; margin-top: 30px; font-size: 20px; font-weight: bold; }
+        .total-container { text-align: right; margin-top: 30px; }
+        .total-pedidos { font-size: 16px; color: #666; margin-bottom: 5px; }
+        .total-faturamento { font-size: 20px; font-weight: bold; color: #1e3a8a; }
         .btn-imprimir { 
             display: block; width: 200px; margin: 0 auto 30px auto; padding: 10px; 
             background-color: #1e3a8a; color: white; text-align: center; 
@@ -57,8 +59,13 @@
         </tbody>
     </table>
 
-    <div class="total">
-        Faturamento Total Válido: R$ {{ number_format($faturamentoTotal, 2, ',', '.') }}
+    <div class="total-container">
+        <div class="total-pedidos">
+            Total de Pedidos Realizados: <strong>{{ $totalPedidos }}</strong>
+        </div>
+        <div class="total-faturamento">
+            Faturamento Total Válido: R$ {{ number_format($faturamentoTotal, 2, ',', '.') }}
+        </div>
     </div>
 
 </body>

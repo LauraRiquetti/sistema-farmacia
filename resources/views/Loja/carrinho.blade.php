@@ -17,6 +17,18 @@
             </thead>
             <tbody id="corpo-tabela-carrinho">
             </tbody>
+            
+            <tfoot id="rodape-tabela-carrinho" style="background-color: #f8f9fa; border-top: 2px solid #1e3a8a;">
+                <tr>
+                    <td colspan="3" style="padding: 20px 15px; text-align: right; font-size: 1.2rem; font-weight: bold; color: #333;">
+                        Subtotal do Pedido:
+                    </td>
+                    <td id="valor-subtotal" colspan="2" style="padding: 20px 15px; text-align: center; font-size: 1.4rem; font-weight: bold; color: #28a745;">
+                        R$ 0,00
+                    </td>
+                </tr>
+            </tfoot>
+
         </table>
     </div>
 
@@ -66,6 +78,7 @@ function renderizarCarrinho() {
     let containerBotoes = document.getElementById('container-botoes');
     let containerVazio = document.getElementById('container-vazio');
     let tbody = document.getElementById('corpo-tabela-carrinho');
+    let campoSubtotal = document.getElementById('valor-subtotal'); // Captura o local do Subtotal
 
     if (carrinho.length === 0) {
         containerTabela.style.display = 'none';
@@ -79,9 +92,13 @@ function renderizarCarrinho() {
     containerVazio.style.display = 'none';
 
     tbody.innerHTML = '';
+    
+    let valorTotalCarrinho = 0; // Calculadora invisível começa em ZERO
 
     carrinho.forEach((produto) => {
         let subtotal = produto.valor * produto.quantidade;
+        
+        valorTotalCarrinho += subtotal; // Vai somando o valor de cada item!
         
         let tr = document.createElement('tr');
         tr.style.borderBottom = '1px solid #eeeeee';
@@ -105,6 +122,9 @@ function renderizarCarrinho() {
         `;
         tbody.appendChild(tr);
     });
+
+    // Ao final do laço, atualiza o texto na tela com a soma de tudo!
+    campoSubtotal.innerText = formatarMoeda(valorTotalCarrinho);
 }
 
 function alterarQtd(id, delta) {
@@ -112,11 +132,15 @@ function alterarQtd(id, delta) {
     let produto = carrinho.find(item => item.id === id);
 
     if (produto) {
-        produto.quantidade += delta;
-        if (produto.quantidade <= 0) {
-            removerItem(id);
-            return;
+        // REGRA NOVA: Se a quantidade for 1 e o cliente tentar diminuir (-1), a função para e não faz nada!
+        if (produto.quantidade === 1 && delta === -1) {
+            // Opcional: Você pode colocar um alertzinho aqui se quiser, tipo:
+            // alert("Use o botão X vermelho para remover o produto do carrinho.");
+            return; 
         }
+
+        produto.quantidade += delta;
+        
         localStorage.setItem('farmaon_carrinho', JSON.stringify(carrinho));
         renderizarCarrinho();
     }
@@ -146,6 +170,10 @@ function prepararCheckout() {
     }
 
     document.getElementById('carrinho_dados').value = carrinho;
+    
+    // LINHA ADICIONADA: Limpa o carrinho após confirmar a compra!
+    localStorage.removeItem('farmaon_carrinho');
+
     document.getElementById('form-checkout').submit();
 }
 

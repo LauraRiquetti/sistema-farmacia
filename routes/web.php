@@ -8,6 +8,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CarrinhoController;
+use App\Http\Controllers\PasswordResetController; // <- Coloquei ele aqui no topo com os outros!
 
 /*
 |--------------------------------------------------------------------------
@@ -31,10 +32,16 @@ Route::get('/carrinho/limpar', [CarrinhoController::class, 'limpar'])->name('car
 // Autenticação (Login e Cadastro)
 Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [AuthController::class, 'login']);
-Route::post('/logout', [AuthController::class, 'logout'])->name('logout'); // ROTA ADICIONADA!
+Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 Route::get('/cadastro', function () { return view('auth.cadastro'); })->name('cadastro');
 Route::post('/cadastro', [UsuarioController::class, 'store']);
+
+// Recuperação e Redefinição de Senha
+Route::get('/esqueci-minha-senha', [PasswordResetController::class, 'request'])->name('password.request');
+Route::post('/esqueci-minha-senha', [PasswordResetController::class, 'email'])->name('password.email');
+Route::get('/redefinir-senha/{token}', [PasswordResetController::class, 'reset'])->name('password.reset');
+Route::post('/redefinir-senha', [PasswordResetController::class, 'update'])->name('password.update');
 
 // Utilidades
 Route::get('/cep/{cep}', [UsuarioController::class, 'buscarCep']);
@@ -53,7 +60,7 @@ Route::middleware('auth')->group(function () {
     // Salvar a venda
     Route::post('/vendas', [VendaController::class, 'store'])->name('vendas.store');
 
-    // NOVA ROTA: Histórico de compras (Meus Pedidos)
+    // Histórico de compras (Meus Pedidos)
     Route::get('/meus-pedidos', [VendaController::class, 'meusPedidos'])->name('meus.pedidos');
 });
 
@@ -87,8 +94,6 @@ Route::middleware(['auth', 'admin'])->group(function () {
 
     // Gerar Relatório
     Route::get('/relatorio-vendas', [DashboardController::class, 'relatorio'])->name('admin.relatorio');
-    
-    // (A rota de POST para /vendas foi movida daqui para o grupo de cima)
     
     Route::get('/vendas/{id}', [VendaController::class, 'show'])->name('vendas.show');
     Route::get('/vendas/{id}/edit', [VendaController::class, 'edit'])->name('vendas.edit');

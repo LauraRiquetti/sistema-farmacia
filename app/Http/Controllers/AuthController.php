@@ -53,4 +53,4 @@ class AuthController extends Controller
         // 4. Redireciona para a página inicial (Home) com uma mensagem
         return redirect('/')->with('success', 'Você saiu com sucesso!');
     }
-}
+}   

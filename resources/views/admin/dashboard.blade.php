@@ -2,11 +2,17 @@
 
 @section('content')
 <div class="container" style="margin-top: 30px; margin-bottom: 50px;">
-    <h2 style="color: #1e3a8a; font-weight: bold; margin-bottom: 25px;">📊 Painel Administrativo</h2>
-
-    <a href="{{ route('admin.relatorio') }}" target="_blank" style="display: inline-block; margin-bottom: 25px; background-color: #10b981; color: white; padding: 10px 20px; text-decoration: none; border-radius: 6px; font-weight: bold;">
-        📄 Gerar Relatório de Vendas
-    </a>
+    
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px;">
+        <h2 style="color: #1e3a8a; font-weight: bold; margin: 0;">📊 Painel Administrativo</h2>
+        
+        <a href="{{ route('admin.relatorio') }}" target="_blank" 
+           style="background-color: #10b981; color: white; padding: 10px 20px; text-decoration: none; border-radius: 6px; font-weight: bold; box-shadow: 0 4px 6px rgba(16, 185, 129, 0.3); transition: 0.3s;"
+           onmouseover="this.style.backgroundColor='#059669'"
+           onmouseout="this.style.backgroundColor='#10b981'">
+            📄 Gerar Relatório de Vendas
+        </a>
+    </div>
 
     <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin-bottom: 30px;">
         
@@ -95,7 +101,7 @@
 <script>
     const ctx = document.getElementById('graficoVendas');
     new Chart(ctx, {
-        type: 'doughnut', // Mudei para doughnut (rosca) para visualização de status
+        type: 'doughnut', 
         data: {
             labels: ['Aguardando', 'Separando', 'Em Rota', 'Entregue'],
             datasets: [{

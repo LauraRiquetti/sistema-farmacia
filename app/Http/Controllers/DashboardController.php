@@ -55,7 +55,7 @@ class DashboardController extends Controller
 
     public function relatorio()
     {
-        // Busca todas as vendas para o relatório (em um sistema real, poderíamos filtrar por data)
+        // Busca todas as vendas para o relatório
         $vendas = class_exists('\App\Models\Venda') 
                     ? Venda::with('usuario', 'produto')->orderByDesc('created_at')->get() 
                     : collect();
@@ -64,7 +64,11 @@ class DashboardController extends Controller
         $faturamentoTotal = class_exists('\App\Models\Venda') 
                     ? Venda::where('status', '!=', 'cancelado')->sum('valor') 
                     : 0;
+        
+        // NOVO: Conta quantos pedidos (itens) foram vendidos no total
+        $totalPedidos = $vendas->count();
 
-        return view('admin.relatorio', compact('vendas', 'faturamentoTotal'));
+        // Atualizado o compact para enviar o $totalPedidos para a tela
+        return view('admin.relatorio', compact('vendas', 'faturamentoTotal', 'totalPedidos'));
     }
 }

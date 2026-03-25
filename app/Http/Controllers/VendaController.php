@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Venda;
-use App\Models\Produto; // ADICIONADO: Precisamos importar o Produto para dar baixa no estoque
+use Illuminate\Support\Facades\Mail;
+use App\Mail\PedidoConfirmado;
+use App\Models\Produto;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth; 
 
@@ -33,12 +35,20 @@ class VendaController extends Controller
             return redirect()->back()->with('error', 'Seu carrinho está vazio.');
         }
 
+        $venda = null; 
+        $totalPedido = 0; // NOSSA CALCULADORA DO PHP PARA O VALOR TOTAL
+
         foreach ($carrinho as $item) {
+            
+            // Calcula o subtotal deste item específico e soma no Total do Pedido
+            $subtotalItem = $item['valor'] * $item['quantidade'];
+            $totalPedido += $subtotalItem; 
+
             // 1. Salva a Venda
-            Venda::create([
+            $venda = Venda::create([
                 'usuario_id' => Auth::id(),
                 'produto_id' => $item['id'],
-                'valor'      => $item['valor'] * $item['quantidade'],
+                'valor'      => $subtotalItem,
                 'pagamento'  => 'pix', 
                 'status'     => 'aguardando_confirmacao',
                 'descricao'  => 'Compra via Site. Quantidade: ' . $item['quantidade'],
@@ -57,6 +67,13 @@ class VendaController extends Controller
                 
                 $produto->save(); // Atualiza no banco
             }
+        }
+
+        // =====================================================================
+        // A LINHA MÁGICA: Agora enviamos o $venda e o $totalPedido juntos!
+        // =====================================================================
+        if ($venda) {
+            Mail::to(Auth::user()->email)->send(new PedidoConfirmado($venda, $totalPedido));
         }
 
         return redirect()->route('loja.home')->with('compra_sucesso', 'Seu pedido foi realizado com sucesso!');
