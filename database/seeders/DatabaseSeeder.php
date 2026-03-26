@@ -9,8 +9,8 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         $this->call([
-            AdminUserSeeder::class, // O seu de admin que já estava aí
-            ProdutoSeeder::class,   // Adicionamos o novo aqui!
+            AdminSeeder::class,
+            ProdutoSeeder::class, // Mantém o dos produtos que fizemos antes!
         ]);
     }
 }
